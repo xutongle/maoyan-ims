@@ -1,4 +1,4 @@
-<template>
+﻿<template>
 	<div class="addmovie left-inner">
 		<el-row :gutter="20">
 			<el-col :span="16" :push='3'>

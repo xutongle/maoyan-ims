@@ -1,4 +1,4 @@
-<template>
+﻿<template>
 	<div class="reg container">
 		<el-row :gutter="20">
 			<h1>注册页面</h1>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-	import _axios from "../axios.js";
+	import _axios from "./axios.js";
 	import routers from './routers.js';
 	export default {
 		name: 'reg',
