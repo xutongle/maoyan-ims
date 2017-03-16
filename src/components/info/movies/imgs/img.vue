@@ -21,15 +21,15 @@
 							</el-select>
 						</el-form-item>
 						<el-form-item label="上传图片">
-							<el-upload 
-							ref="upload" 
-							:data='imgData' 
-							:multiple="true" 
-							action='http://localhost:3000/files/upload' 
-							:on-preview="handlePreview" 
+							<el-upload
+							ref="upload"
+							:data='imgData'
+							:multiple="true"
+							action='http://localhost:3000/files/upload'
+							:on-preview="handlePreview"
 							:show-file-list="true"
-							:file-list="fileList" 
-							:auto-upload="false" 
+							:file-list="fileList"
+							:auto-upload="false"
 							:before-upload="beforeAvatarUpload">
 								<el-button slot="trigger" type="primary">选取文件</el-button>
 								<div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且单次最多5张。</div>
@@ -135,11 +135,11 @@
 		position: relative;
 		overflow: hidden;
 	}
-	
+
 	.avatar-uploader .el-upload:hover {
 		border-color: #20a0ff;
 	}
-	
+
 	.avatar-uploader-icon {
 		font-size: 28px;
 		color: #8c939d;
@@ -148,7 +148,7 @@
 		line-height: 178px;
 		text-align: center;
 	}
-	
+
 	.avatar {
 		width: 178px;
 		height: 178px;

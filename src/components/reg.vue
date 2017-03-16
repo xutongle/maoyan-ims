@@ -26,7 +26,7 @@
 </template>
 
 <script>
-	import axios from 'axios';
+	import _axios from "../axios.js";
 	import routers from './routers.js';
 	export default {
 		name: 'reg',
@@ -34,7 +34,7 @@
 			var checkName = (rule, value, callback) => {
 					setTimeout(() => {
 						if (value) {
-							axios.post('http://localhost:3010/users/isUse', {
+							_axios.post('/users/isUse', {
 									username: value
 								})
 								.then(function (res) {
