@@ -1,5 +1,6 @@
-// 统一请求路径 baseURL
+﻿// 统一请求路径 baseURL
 import axios from 'axios';
+
 export default axios.create({
-	baseURL: 'http://localhost:3010',
+	baseURL: 'http://localhost:3010'
 });
