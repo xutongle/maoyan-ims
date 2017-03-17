@@ -21,6 +21,6 @@
 	import Vuex from 'vuex';
 	export default {
 		name: 'info',
-		computed: Vuex.mapState(["INFO"]),
+		computed: Vuex.mapState(["INFO"])
 	}
 </script>
