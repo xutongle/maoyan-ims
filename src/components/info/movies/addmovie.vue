@@ -1,4 +1,4 @@
-﻿<template>
+<template>
 	<div class="addmovie left-inner">
 		<el-row :gutter="20">
 			<el-col :span="16" :push='3'>
@@ -62,7 +62,7 @@
 			};
 		},
 		async created() {
-			var result = await axios.post('/movieType/getMovieType');
+			var result = await _axios.post('/movieType/getMovieType');
 			this.typelist = result.data.rows;
 		},
 		methods: {
