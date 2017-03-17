@@ -1,79 +1,79 @@
 [
-    {
-        "title": "用户管理",
-        "children": [
-            {
-                "title": "用户列表",
-                "url": "/info/users/userlist",
-                "group": "查询用户"
-            },
-            {
-                "title": "新增用户",
-                "url": "/info/users/adduser",
-                "group": "新增用户"
-            },
-            {
-                "title": "管理员列表",
-                "url": "/info/users/adminlist",
-                "group": "查询用户"
-            },
-            {
-                "title": "新增管理员",
-                "url": "/info/users/addadmin",
-                "group": "新增用户"
-            }
-        ]
-    },
-    {
-        "title": "电影管理",
-        "children": [
-            {
-                "title": "电影列表",
-                "url": "/info/movie/movielist"
-            },
-            {
-                "title": "新增电影",
-                "url": "/info/movie/addmovie"
-            }
-        ]
-    },
-    {
-        "title": "电影类型管理",
-        "children": [
-            {
-                "title": "类型列表",
-                "url": "/info/movie/movietype/movietypelist"
-            },
-            {
-                "title": "新增类型",
-                "url": "/info/movie/movietype/addmovietype"
-            }
-        ]
-    },
-    {
-        "title": "排片管理(改为影院管理)",
-        "children": [
-            {
-                "title": "新增排片",
-                "url": "/info/movie"
-            },
-            {
-                "title": "排片查询",
-                "url": "/info/movie"
-            }
-        ]
-    },
-	{
-        "title": "排片管理",
-        "children": [
-            {
-                "title": "新增排片",
-                "url": "/info/movie"
-            },
-            {
-                "title": "排片查询",
-                "url": "/info/movie"
-            }
-        ]
-    }
+  {
+    "title": "用户管理", 
+    "children": [
+      {
+        "title": "用户列表", 
+        "url": "/info/users/userlist"
+      }, 
+      {
+        "title": "新增用户", 
+        "url": "/info/users/adduser"
+      }, 
+      {
+        "title": "管理员列表", 
+        "url": "/info/users/adminlist"
+      }, 
+      {
+        "title": "新增管理员", 
+        "url": "/info/users/addadmin"
+      }
+    ]
+  }, 
+  {
+    "title": "电影管理", 
+    "children": [
+      {
+        "title": "电影列表", 
+        "url": "/info/movie/movielist"
+      }, 
+      {
+        "title": "新增电影", 
+        "url": "/info/movie/addmovie"
+      }
+    ]
+  }, 
+  {
+    "title": "电影类型管理", 
+    "children": [
+      {
+        "title": "类型列表", 
+        "url": "/info/movie/movietype/movietypelist"
+      }, 
+      {
+        "title": "新增类型", 
+        "url": "/info/movie/movietype/addmovietype"
+      }
+    ]
+  }, 
+  {
+    "title": "影院管理", 
+    "children": [
+      {
+        "title": "影院列表", 
+        "url": "/info/studios/studiolist"
+      }, 
+      {
+        "title": "新增影院", 
+        "url": "/info/studios/addstudio"
+      }, 
+      {
+        "title": "影院查询", 
+        "url": "/info/studios/updatestudio"
+      }
+    ]
+  }, 
+  {
+    "title": "排片管理", 
+    "children": [
+      {
+        "title": "新增排片", 
+        "url": "/info/movie"
+      }, 
+      {
+        "title": "排片查询", 
+        "url": "/info/movie"
+      }
+    ]
+  }
 ]

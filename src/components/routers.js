@@ -17,6 +17,10 @@ import MovieType from './info/movies/movietype/movietype.vue';
 import AddMovieType from './info/movies/movietype/addmovietype.vue';
 import MovieTypeList from './info/movies/movietype/movietypelist.vue';
 import MovieImgs from './info/movies/imgs/img.vue';
+import Studios from './info/studios/studios.vue';
+import StudiosList from './info/studios/studiolist.vue';
+import AddStudios from './info/studios/addstudio.vue';
+import UpdateStudio from './info/studios/updatestudio.vue';
 
 Vue.use(Router);
 
@@ -24,63 +28,73 @@ export default new Router({
 	routes: [{
 		path: '/',
 		component: Login
-	},{
+	}, {
 		path: '/login',
 		component: Login
-	},{
+	}, {
 		path: '/login/:username',
 		component: Login
-	},{
+	}, {
 		path: '/reg',
 		component: Reg
-	},{
+	}, {
 		path: '/info',
 		component: Info,
-		children:[{
+		children: [{
 			path: 'users',
 			component: Users,
-			children:[{
+			children: [{
 				path: 'adduser',
 				component: AddUser
-			},{
+			}, {
 				path: 'addadmin',
 				component: AddAdmin
-			},{
+			}, {
 				path: 'userlist',
 				component: UserList
-			},{
+			}, {
 				path: 'adminlist',
 				component: AdminList
 			}]
-		},{
+		}, {
 			path: 'movie',
 			component: Movie,
 			children: [{
 				path: 'addmovie',
 				component: AddMovie
-			},{
+			}, {
 				path: 'updatemovie/:movieID',
 				component: UpdateMovie
-			},{
+			}, {
 				path: 'movielist',
 				component: MovieList
-			},{
+			}, {
 				path: 'movietype',
 				component: MovieType,
 				children: [{
 					path: 'addmovietype',
 					component: AddMovieType
-				},{
+				}, {
 					path: 'movietypelist',
 					component: MovieTypeList
 				}]
-			},{
+			}, {
 				path: 'imgs/:movieID',
 				component: MovieImgs
 			}]
+		}, {
+			path: 'studios',
+			component: Studios,
+			children: [{
+				path: 'studiolist',
+				component: StudiosList
+			},{
+				path: 'addstudio',
+				component: AddStudios
+			},{
+				path: 'updatestudio',
+				component: UpdateStudio
+			}]
 		}]
-	},{
-		path: '/login',
-		component: Login
 	}]
 });
