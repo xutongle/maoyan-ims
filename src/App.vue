@@ -19,7 +19,8 @@
 		background-color: #e6e6e6;
 	}
 	
-	ul, li{
+	ul,
+	li {
 		list-style: none;
 	}
 	
@@ -102,17 +103,19 @@
 		text-align: center;
 		background: #fff
 	}
-	.movieImgList{
+	
+	.movieImgList {
 		max-width: 100%;
 		display: flex;
 		flex-wrap: wrap;
 		align-items: top;
 	}
-		
-	.movieImgList li{
+	
+	.movieImgList li {
 		padding: 5px;
 	}
-	.movieImgList img{
+	
+	.movieImgList img {
 		max-height: 200px;
 		border: 1px solid #FFF;
 	}
