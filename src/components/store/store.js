@@ -2,18 +2,19 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 Vue.use(Vuex);
 
-import {
-	INFO_NAV_LIST
-} from './info/info-store.js';
-const INFO = {
-	state: {
-		INFO_NAV_LIST
-	}
-}
+import INFO from './info/info-store.js';
+import MOVIE from './movie/movie-store.js';
 
 const store = new Vuex.Store({
 	modules: {
-		INFO
+		INFO,
+		MOVIE
+	},
+	mutations: {
+		
+	},
+	action: {
+		
 	}
 });
 

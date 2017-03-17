@@ -20,10 +20,12 @@
 		<div class="pagination-box">
 			<el-pagination :total="page.total" :page-size="page.eachPage" :current-page="page.curPage" :page-sizes="page.eachPages" @size-change="handleSizeChange" @current-change="handleCurrentChange" layout="total, sizes, prev, pager, next, jumper">
 			</el-pagination>
+			<button @click='GET_MOVIE_BY_ID({movieID:142536})'>123123</button>
 		</div>
 	</div>
 </template>
 <script>
+	import Vuex from 'vuex';
 	import 'babel-polyfill';
 	import _axios from "../../axios.js";
 	import router from "../../routers.js";
@@ -40,10 +42,12 @@
 				movielist: []
 			}
 		},
+		computed: Vuex.mapState(["MOVIE"]),
 		beforeMount() {
 			this.GetMovieByPage();
 		},
 		methods: {
+		...Vuex.mapMutations(['GET_MOVIE_BY_ID']),
 			rowBblclick(row, event) {
 				console.log(row._id)
 			},
