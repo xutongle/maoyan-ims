@@ -25,7 +25,7 @@
 							ref="upload"
 							:data='imgData'
 							:multiple="true"
-							action='http://localhost:3000/files/upload'
+							action='http://localhost:3010/files/upload'
 							:on-preview="handlePreview"
 							:show-file-list="true"
 							:file-list="fileList"
@@ -79,7 +79,7 @@
 				fileList: [],
 				imgData: {
 					movieId: this.$route.params.movieID,
-					type: "indexImg "
+					type: "indexImg"
 				},
 				options: [{
 					value: 'indexImg',
