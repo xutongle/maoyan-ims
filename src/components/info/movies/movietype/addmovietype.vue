@@ -1,38 +1,38 @@
 <template>
 	<div class='content'>
-		<el-form :model="movietypeText"  :rules="rules" ref="movietypeText" label-width="100px" >
+		<el-form :model="movietypeText"  :rules="rules" ref="formName"  label-width="100px" >
 		  <el-form-item
 		  	style="margin-top:50px"
 		    label-width="200px"
 		    prop="movietype"
 		    label="新增电影类型："
 		  >
-		  	<el-input style="width:500px" v-model="movietypeText.domains"></el-input>
+		  	<el-input style="width:500px"  v-model="movietypeText.textValue"></el-input>
 		  </el-form-item>
 
 		  <el-form-item 
 		     style='position:absolute;right:138px;'>
-		    <el-button type="primary" @click="submitForm('movietypeText')">保存</el-button>
-		    <el-button @click="resetForm('movietypeText')">清空</el-button>
+		    <el-button type="primary" @click="submitForm('formName')">保存</el-button>
+		    <el-button @click="resetForm('formName')">清空</el-button>
 		  </el-form-item>
 
 		  <el-form-item  
-		  	label="新增已成功："
-		  	required="true"
-		  	label-width="200px">
-		  	<el-input style="width:300px" readonly="true" v-model="movietypeText.domains"></el-input>
+		  	label="已成功新增："
+		  	:required="true"
+		  	label-width="200px"
+		  	v-if="status" >
+		  	<el-input ref='mirror' style="width:300px" :readonly="true" v-model="movietypeText.textValue"></el-input>
 		  </el-form-item>
 		</el-form>
-		
-
    </div>
 </template>
 
 <script>
+
   export default {
     data() {
 	        var vlidate = (rule, value, callback) => {
-		            if (!/^[a-zA-Z\u4e00-\u9fa5]{4,}$/.test(value)) {
+		            if (!/^[\u4e00-\u9fa5]+$/.test(value)) {
 		                callback(new Error("请输入汉字或者英文字符"));
 		            }
 		            else {
@@ -40,8 +40,9 @@
 		            }
 		    };
 	      	return {
+	      		status:false,
 	      		movietypeText: {
-		          	domains:"dd",
+		          	textValue:"单独",
 		          	typeId:''
 	        	},
 		    	rules: {
@@ -60,6 +61,9 @@
         },
         methods: {
       	submitForm(formName) {
+      		this.status =  true
+      		console.log(this.movietypeText)
+      		// this.$refs.mirror.value = this.movietypeText.textValue
 	        this.$refs[formName].validate((valid) => {
 	          if (valid) {
 	            alert('submit!');
@@ -68,8 +72,11 @@
 	            return false;
 	          }
 	        });
+
       	},
       resetForm(formName) {
+      	this.status = false;
+      	console.log(1)
         this.$refs[formName].resetFields();
       }
       

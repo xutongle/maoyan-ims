@@ -5,7 +5,7 @@
 		</el-row>
 		<el-row :gutter="20">
 			<el-col :span="24">
-				<el-form :model="user" :rules="rules" ref="user" label-width="100px">
+				<el-form :model="user" :rules="rules" ref="userform" label-width="100px">
 					<el-form-item label="用户名：" prop="username">
 						<el-input v-model="user.username"></el-input>
 					</el-form-item>
@@ -16,7 +16,7 @@
 						<el-input v-model="user.password2" type='password'></el-input>
 					</el-form-item>
 					<el-form-item>
-						<el-button type="primary" @click="submitForm('user')" :disabled=flag>注册</el-button>
+						<el-button type="primary" @click="submitForm('userform')" :disabled=flag>注册</el-button>
 						<el-button type="text" @click="login">已有账号？前往登陆</el-button>
 					</el-form-item>
 				</el-form>
