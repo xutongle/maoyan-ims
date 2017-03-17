@@ -21,9 +21,6 @@
 	import Vuex from 'vuex';
 	export default {
 		name: 'info',
-		computed: Vuex.mapState(["INFO"]),
-		methods: {    
-		...mapMutations(['GET_MOVIE_BY_ID'])
-		}
+		computed: Vuex.mapState(["INFO"])
 	}
 </script>
