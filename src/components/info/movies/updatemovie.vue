@@ -38,7 +38,7 @@
 			</el-col>
 		</el-row>
 		<div>
-			<moviedetail :movie='movie'></moviedetail>
+<!--			<moviedetail :movie='movie'></moviedetail>-->
 		</div>
 	</div>
 </template>

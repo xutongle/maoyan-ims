@@ -70,13 +70,15 @@
 	
 	.left-container {
 		padding: 0 30px;
-		margin: 10px;
+		overflow-y: auto;
+		max-height: 100%;
 	}
 	
 	.left-inner {
 		padding: 5px;
 	}
 	
+/*
 	.bg-purple-dark {
 		background: #99a9bf;
 	}
@@ -88,6 +90,7 @@
 	.bg-purple-light {
 		background: #e5e9f2;
 	}
+*/
 	
 	.grid-content {
 		border-radius: 4px;

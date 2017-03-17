@@ -1,9 +1,9 @@
 // 引入 json 文件
-import MOVIE_LIST from './info-navlist.json';
-import ADD_MOVIE from './info-navlist.json';
+import ADD_MOVIE from './addmovie/addmovie-store.js';
+import MOVIE_LIST from './movielist/movielist-store.js';
 const state = {
-	MOVIE_LIST,
-	ADD_MOVIE
+	ADD_MOVIE,
+	MOVIE_LIST
 };
 export default {
 	state
