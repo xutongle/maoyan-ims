@@ -24,6 +24,7 @@
 	</div>
 </template>
 <script>
+	import Vuex from 'vuex';
 	import 'babel-polyfill';
 	import _axios from "../../axios.js";
 	import router from "../../routers.js";
@@ -40,8 +41,10 @@
 				movielist: []
 			}
 		},
+		computed: Vuex.mapState(["MOVIE"]),
 		beforeMount() {
 			this.GetMovieByPage();
+			console.log(this)
 		},
 		methods: {
 			rowBblclick(row, event) {

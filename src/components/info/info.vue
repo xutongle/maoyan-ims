@@ -22,5 +22,8 @@
 	export default {
 		name: 'info',
 		computed: Vuex.mapState(["INFO"]),
+		methods: {    
+		...mapMutations(['GET_MOVIE_BY_ID'])
+		}
 	}
 </script>
