@@ -1,45 +1,93 @@
-
 <template>
-	<div>
-		<el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
-		  <el-form-item label="添加电影类型" label-color="#1F2D3D" prop="type">
-		    <el-input type="text" v-model="ruleForm2.types" auto-complete="off"></el-input>
+	<div class='content'>
+		<el-form :model="movietypeText"  :rules="rules" ref="movietypeText" label-width="100px" >
+		  <el-form-item
+		  	style="margin-top:50px"
+		    label-width="200px"
+		    prop="movietype"
+		    label="新增电影类型："
+		  >
+		  	<el-input style="width:500px" v-model="movietypeText.domains"></el-input>
 		  </el-form-item>
-		 
-		  <el-form-item>
-		    <el-button type="primary" @click="submitForm('ruleForm2')">保存</el-button>
-		    <el-button type="primary" @click="resetForm('ruleForm2')">重置</el-button>
+
+		  <el-form-item 
+		     style='position:absolute;right:138px;'>
+		    <el-button type="primary" @click="submitForm('movietypeText')">保存</el-button>
+		    <el-button @click="resetForm('movietypeText')">清空</el-button>
+		  </el-form-item>
+
+		  <el-form-item  
+		  	label="新增已成功："
+		  	required="true"
+		  	label-width="200px">
+		  	<el-input style="width:300px" readonly="true" v-model="movietypeText.domains"></el-input>
 		  </el-form-item>
 		</el-form>
-	</div>
+		
+
+   </div>
 </template>
+
 <script>
-	export default {
-	  data() {
-	       return {
-	         ruleForm2: {
-	           types: '',
-	         },
-	         rules2: {
-	           type:''
-	         }
-	       }
-	     },
-	     methods: {
-	       submitForm(formName) {
-	         this.$refs[formName].validate((valid) => {
-	           if (valid) {
-	             alert('save success!');
-	           } else {
-	             console.log('error submit!!');
-	             return false;
-	           }
-	         });
-	       },
-	       resetForm(formName) {
-	         this.$refs[formName].resetFields();
-	       }
-	     }
-	   }
-	
+  export default {
+    data() {
+	        var vlidate = (rule, value, callback) => {
+		            if (!/^[a-zA-Z\u4e00-\u9fa5]{4,}$/.test(value)) {
+		                callback(new Error("请输入汉字或者英文字符"));
+		            }
+		            else {
+		                callback();
+		            }
+		    };
+	      	return {
+	      		movietypeText: {
+		          	domains:"dd",
+		          	typeId:''
+	        	},
+		    	rules: {
+		    		movietype: [
+		    			{
+		    				required: true,
+		    				message: '请输入电影类型',
+		    				trigger: 'submit'
+		    			},{
+		    				validator: vlidate,
+		    				trigger: 'blur,change'
+		    			}
+		    	    ]
+		    	}
+	      	}
+        },
+        methods: {
+      	submitForm(formName) {
+	        this.$refs[formName].validate((valid) => {
+	          if (valid) {
+	            alert('submit!');
+	          } else {
+	            console.log('error submit!!');
+	            return false;
+	          }
+	        });
+      	},
+      resetForm(formName) {
+        this.$refs[formName].resetFields();
+      }
+      
+    }
+  }
 </script>
+<style>
+	.content{
+		position:relative;
+		height:300px;
+		background:#fff;
+		border:1px solid #3879D9;
+	}
+	
+	.addMovie{
+		color:red;
+	}
+</style>
+
+
+        	
