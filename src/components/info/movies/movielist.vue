@@ -28,6 +28,7 @@
 	import 'babel-polyfill';
 	import _axios from "../../axios.js";
 	import router from "../../routers.js";
+	import { GET_MOVIE_BY_ID } from '../../store/movie/mutations_type.js'
 	export default {
 		name: 'movielist',
 		data() {
@@ -46,7 +47,7 @@
 			this.GetMovieByPage();
 		},
 		methods: {
-		...Vuex.mapMutations(['GET_MOVIE_BY_ID']),
+		...Vuex.mapActions([GET_MOVIE_BY_ID]),
 			async GetMovieByPage() {
 				var result = await _axios.post('/movies/getMoviesByPage', {
 					page: this.page.curPage,
