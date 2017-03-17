@@ -22,7 +22,5 @@
 	export default {
 		name: 'info',
 		computed: Vuex.mapState(["INFO"]),
-		methods: {
-		}
 	}
 </script>

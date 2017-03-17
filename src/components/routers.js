@@ -79,5 +79,8 @@ export default new Router({
 				component: MovieImgs
 			}]
 		}]
+	},{
+		path: '/login',
+		component: Login
 	}]
 });
