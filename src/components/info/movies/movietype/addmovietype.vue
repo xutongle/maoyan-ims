@@ -1,100 +1,122 @@
+
+
 <template>
 	<div class='content'>
-		<el-form :model="movietypeText"  :rules="rules" ref="formName"  label-width="100px" >
-		  <el-form-item
-		  	style="margin-top:50px"
-		    label-width="200px"
-		    prop="movietype"
-		    label="新增电影类型："
-		  >
-		  	<el-input style="width:500px"  v-model="movietypeText.textValue"></el-input>
+		 <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm"
+		 style="margin-top:50px"
+		>
+		  <el-form-item label="新增电影类型" prop="name">
+		    <el-input v-model="ruleForm.name" style="width:620px;"></el-input>
 		  </el-form-item>
 
-		  <el-form-item 
-		     style='position:absolute;right:138px;'>
-		    <el-button type="primary" @click="submitForm('formName')">保存</el-button>
-		    <el-button @click="resetForm('formName')">清空</el-button>
-		  </el-form-item>
-
-		  <el-form-item  
-		  	label="已成功新增："
-		  	:required="true"
-		  	label-width="200px"
-		  	v-if="status" >
-		  	<el-input ref='mirror' style="width:300px" :readonly="true" v-model="movietypeText.textValue"></el-input>
+		  <el-form-item  style='position:absolute;right:68px;top:135px;z-index:9'>
+		    <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
+        <el-button type="primary" @click="resetForm('ruleForm')">清空</el-button>
+		    <el-button type="primary" @click="lookFor('ruleForm')">查看</el-button>
 		  </el-form-item>
 		</el-form>
-   </div>
-</template>
 
+		<el-form  label-width="150px" class="demo-ruleForm" style="margin-top:50px">
+		  <el-form-item label="新增成功" >
+		    <el-input ref="mirror" value='' 
+		    	style="width:390px;"
+		    	:required="true"
+		    	:readonly='true'
+		    	></el-input>
+		  </el-form-item>
+		</el-form>
+	</div>	
+</template>	
 <script>
-
+import axios from '../../../axios.js'
+import router from '../../../routers.js'
   export default {
     data() {
-	        var vlidate = (rule, value, callback) => {
-		            if (!/^[\u4e00-\u9fa5]+$/.test(value)) {
-		                callback(new Error("请输入汉字或者英文字符"));
-		            }
-		            else {
-		                callback();
-		            }
-		    };
-	      	return {
-	      		status:false,
-	      		movietypeText: {
-		          	textValue:"单独",
-		          	typeId:''
-	        	},
-		    	rules: {
-		    		movietype: [
-		    			{
-		    				required: true,
-		    				message: '请输入电影类型',
-		    				trigger: 'submit'
-		    			},{
-		    				validator: vlidate,
-		    				trigger: 'blur,change'
-		    			}
-		    	    ]
-		    	}
-	      	}
+	 var bitVlidate = (rule, value, callback) => {
+			            if (!/^[\u4e00-\u9fa5，]+$/.test(value)) {
+			                callback(new Error("请输入汉字或者英文字符"));
+			            }
+			            else {
+			                callback();
+			            }
+			    };
+      return {
+      	status:false,
+        ruleForm: {
+          name:''
         },
-        methods: {
-      	submitForm(formName) {
-      		this.status =  true
-      		console.log(this.movietypeText)
-      		// this.$refs.mirror.value = this.movietypeText.textValue
-	        this.$refs[formName].validate((valid) => {
-	          if (valid) {
-	            alert('submit!');
-	          } else {
-	            console.log('error submit!!');
-	            return false;
-	          }
-	        });
+        mirror:{
+        	text:"测试"
+        },
+        rules: {
+          name: [
+            { 
+            	required: true,
+             	message: '不能为空', 
+             	trigger: 'blur' 
+             },{ 
+     	    	min: 0, max: 22,
+     		 	message: '请输入中文',
+     			trigger: 'change,blur',
+     			validator:bitVlidate
+             	
+            },{
+        	 	min: 2, max: 22, 
+        	 	message: '请输入至少2个汉字',
+        		trigger: 'change,blur'
+            }
+          ]
+        }
+      };
+    },
+    methods: {
+      submitForm(formName) {
+      	// var arrTypes = new Array();
+      	// var types = [];
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+           this.$refs.mirror.$data.currentValue = this.$refs.ruleForm.model.name
+           // arrTypes = this.$refs.ruleForm.model.name.split("，");
+           // if(arrTypes)
+           // for(var i = 0; i < arrTypes.length ;i++){
 
-      	},
+           // }
+           
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+        /*水边，你好，骗了，飘过来*/
+        axios.post('/movieType/addMovieType', {
+            type: this.$refs.ruleForm.model.name
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+        
+      },
       resetForm(formName) {
-      	this.status = false;
-      	console.log(1)
         this.$refs[formName].resetFields();
+        this.$refs.mirror.$data.currentValue = ''
+      },
+      lookFor(){
+        router.push('movietypelist')
       }
-      
     }
   }
-</script>
+</script>   
 <style>
 	.content{
 		position:relative;
-		height:300px;
+		height:250px;
 		background:#fff;
-		border:1px solid #3879D9;
+		border:1px solid rgba(17,212,134,.8);
 	}
-	
-	.addMovie{
-		color:red;
+	.test{
+		color:red
 	}
-</style>
-
-
-        	
+</style>    	
