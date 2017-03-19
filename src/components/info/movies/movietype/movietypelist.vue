@@ -6,18 +6,13 @@
 		    style="width: 100%"
 		    max-height="250">
     		<el-table-column
-		      fixed
 		      align='center'
 		      prop="currType"
-		      label="电影类型列表"
-		      width="320">
+		      label="电影类型列表">
 		    </el-table-column>
-		   
 		    <el-table-column
-		      fixed="right"
 		      align='center'
-		      label="操作"
-		      width="320">
+		      label="操作">
 		      <template scope="scope">
 		        <el-button
 		          @click= "addBtn"
