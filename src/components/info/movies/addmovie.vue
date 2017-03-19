@@ -31,7 +31,7 @@
 						<el-button-group>
 							<el-button type="primary" icon="plus" @click='save'>新增电影</el-button>
 							<el-button type="primary" icon="delete">重置</el-button>
-							<el-button type="primary" :disabled="flag" icon="picture" @click='uploadBtn'>上传图片</el-button>
+							<el-button type="primary" :disabled="flag" icon="picture" @click='uploadBtn'>图片管理</el-button>
 						</el-button-group>
 					</el-form-item>
 				</el-form>

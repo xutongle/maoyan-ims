@@ -7,7 +7,20 @@
 
 
 <script>
+	import 'babel-polyfill';
+	import Vuex from 'vuex';
+	import {
+		GET_MOVIE_TYPE_LIST
+	} from '../../store/movie/mutations_type.js';
 	export default {
-		name: 'movies'
+		name: 'movies',
+		computed: Vuex.mapState(['MOVIE_store']),
+		methods: {
+			...Vuex.mapActions([GET_MOVIE_TYPE_LIST])
+		},
+		created() {
+			this.GET_MOVIE_TYPE_LIST();
+		}
 	}
+
 </script>
