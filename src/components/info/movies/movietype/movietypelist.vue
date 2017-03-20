@@ -15,9 +15,9 @@
 			</el-table-column>
 
     		<el-table-column
-		      fixed
 		      align='center'
 		      prop="currType"
+<<<<<<< HEAD
 		      label="电影类型列表"
 		      width="200">
 		    </el-table-column>
@@ -32,11 +32,13 @@
 		    
 			  
 		   
+=======
+		      label="电影类型列表">
+		    </el-table-column>
+>>>>>>> 0dbfe9678cdcb09ff449ee978b26347a870f2015
 		    <el-table-column
-		      fixed="right"
 		      align='center'
-		      label="操作"
-		      width="320">
+		      label="操作">
 		      <template scope="scope">
 			        <el-button 
 			        	@click= "addBtn" 

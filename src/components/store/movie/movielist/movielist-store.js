@@ -1,13 +1,14 @@
-// 引入 store 模块文件
-import ADD_MOVIE_store from './addmovie/addmovie-store.js';
-
 import actions from './actions.js';
 import mutations from './mutations.js';
 
 const state = {
-	ADD_MOVIE_store,
-	MOVIE_TYPE_LIST: [],
-	movie: {}
+	total: 0,
+	page: {
+		eachPage: 15,
+		eachPages: [5, 10, 15, 20],
+		curPage: 1,
+	},
+	movielist: []
 };
 export default {
 	state,

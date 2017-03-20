@@ -8,6 +8,7 @@
 	export default {
 		name: 'app'
 	}
+
 </script>
 
 <style>
@@ -70,13 +71,17 @@
 	
 	.left-container {
 		padding: 0 30px;
-		margin: 10px;
+		max-height: 100%;
+	}
+	
+	.left-container.y-auto {
+		overflow-y: auto;
 	}
 	
 	.left-inner {
 		padding: 5px;
 	}
-	
+	/*
 	.bg-purple-dark {
 		background: #99a9bf;
 	}
@@ -88,6 +93,7 @@
 	.bg-purple-light {
 		background: #e5e9f2;
 	}
+*/
 	
 	.grid-content {
 		border-radius: 4px;
@@ -119,4 +125,5 @@
 		max-height: 200px;
 		border: 1px solid #FFF;
 	}
+
 </style>

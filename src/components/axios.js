@@ -1,4 +1,4 @@
-﻿// 统一请求路径 baseURL
+// 统一跨域请求基础路径 baseURL
 import axios from 'axios';
 
 export default axios.create({
