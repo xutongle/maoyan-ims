@@ -10,7 +10,10 @@
 		  </el-form-item>
 
 		  <el-form-item  style='position:absolute;right:108px;top:135px;z-index:9'>
-		    <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
+		    <el-button type="primary" @click="submitForm('ruleForm')"
+          @click="dialogVisible = true">
+          保存
+         </el-button>
         <el-button type="primary" @click="resetForm('ruleForm')">清空</el-button>
 		    <el-button type="primary" @click="lookFor('ruleForm')">查看</el-button>
 		  </el-form-item>
@@ -25,6 +28,23 @@
 		    	></el-input>
 		  </el-form-item>
 		</el-form>
+    <template>
+        <el-dialog 
+            title="修改当前类型" 
+          v-model="dialogVisible" 
+          size="tiny">
+          <el-input   
+            placeholder="请输入内容"
+            v-model='changeType.newType'>
+          </el-input>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible = false">取 消</el-button>
+            <span @click="saveBtn">
+              <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+            </span>
+          </span>
+      </el-dialog>
+      </template>
 	</div>	
 </template>	
 <script>
@@ -42,6 +62,7 @@ import router from '../../../routers.js'
 			    };
       return {
       	status:false,
+        dialogVisible: false,
         ruleForm: {
           name:''
         },

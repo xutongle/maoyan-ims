@@ -56,7 +56,7 @@
   		</el-table>
   		<template>
   			<el-dialog 
-  					title="修改" 
+  					title="修改当前类型" 
 					v-model="dialogVisible" 
 					size="tiny">
 				  <el-input   
@@ -82,15 +82,7 @@
 		      :total="total">
 		    </el-pagination>
 		</div>
-
-
-
-
-
-
-
 	</div>
-
 </template>
 
 <script>
@@ -100,12 +92,10 @@ import axios from '../../../axios.js'
 		name: 'movietypelist',
 		data(){
 		   	return {
-		   		currentPage4:1,
+		   		currentPage4:null,
 		   		pageSizes:[10,15,20,30,40],
-		   		pageSize:10,
+		   		pageSize:0,
 		   		total:0,
-
-		   		
 		   		changeType:{
 		   			newType:'',
 		   			newId:''
@@ -124,14 +114,16 @@ import axios from '../../../axios.js'
 		},
 		methods: {
 			 handleSizeChange(val) {
+
 		        console.log(`每页 ${val} 条`);
 		        this.getMovieTypeList();
 		     },
 		     handleCurrentChange(val) {
-		        this.currentPage = val;
-		        this.getMovieTypeList()
-		        console.log(`当前页: ${val}`);
-		        this.getMovieTypeList();
+
+		        this.currentPage4 = val;
+		        console.log(val)
+		       
+		        this.getMovieTypeList(this.currentPage4);
 		     },
 			 saveBtn(){
 			 	axios.post('/movieType/update', {
@@ -144,7 +136,7 @@ import axios from '../../../axios.js'
  				.catch(function (error) {
  				  console.log(error);
  				});
- 				this.getMovieTypeList()
+ 				this.getMovieTypeList(this.currentPage4)
 			 },
 			 upData(index, rows){ 
 			 	var currTypeArr =[] ;
@@ -176,9 +168,10 @@ import axios from '../../../axios.js'
  				.catch(function (error) {
  				  console.log(error);
  				});
- 			this.getMovieTypeList();	
+ 			this.getMovieTypeList(this.currentPage4);	
 		     },
-		     getMovieTypeList(){
+		     getMovieTypeList(currentPage){
+
 		     		axios.post('/movieType/getMovieType', {
 	     				page:1,
 	     	    		rows:10
@@ -187,11 +180,9 @@ import axios from '../../../axios.js'
 	     					console.log(response.data)
 	     					var intData = this
 	     					intData.total = response.data.total
+	     					intData.currentPage4 = currentPage
 	     					/*总页数，貌似插件不支持*/
 	     					// intData.pageSize = response.data.maxPage
-
-	     				console.log(intData.total)
-
 	     					 this.movietypelist = [...response.data.rows.map( (item) =>{
 	     					 	return {
 	     					 		currType:item.type,
