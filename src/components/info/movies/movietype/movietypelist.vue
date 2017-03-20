@@ -15,9 +15,9 @@
 			</el-table-column>
 
     		<el-table-column
+    		  fixed
 		      align='center'
 		      prop="currType"
-<<<<<<< HEAD
 		      label="电影类型列表"
 		      width="200">
 		    </el-table-column>
@@ -29,13 +29,7 @@
 		      label="当前类型ID"
 		      width="238">
 		    </el-table-column>
-		    
-			  
-		   
-=======
-		      label="电影类型列表">
-		    </el-table-column>
->>>>>>> 0dbfe9678cdcb09ff449ee978b26347a870f2015
+
 		    <el-table-column
 		      align='center'
 		      label="操作">
