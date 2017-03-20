@@ -55,15 +55,15 @@ import router from '../../../routers.js'
              	message: '不能为空', 
              	trigger: 'blur' 
              },{ 
-     	    	min: 0, max: 22,
-     		 	message: '请输入中文',
-     			trigger: 'change,blur',
-     			validator:bitVlidate
+     	    	  min: 0, max: 22,
+         		 	message: '请输入中文',
+         			trigger: 'change,blur',
+         			validator:bitVlidate
              	
             },{
-        	 	min: 2, max: 22, 
-        	 	message: '请输入至少2个汉字',
-        		trigger: 'change,blur'
+          	 	min: 2, max: 22, 
+          	 	message: '请输入至少2个汉字',
+          		trigger: 'change,blur'
             }
           ]
         }
@@ -71,46 +71,42 @@ import router from '../../../routers.js'
     },
     methods: {
       submitForm(formName) {
-      	// var arrTypes = new Array();
-      	// var types = [];
         this.$refs[formName].validate((valid) => {
           if (valid) {
-           this.$refs.mirror.$data.currentValue = this.$refs.ruleForm.model.name
-           // arrTypes = this.$refs.ruleForm.model.name.split("，");
-           // if(arrTypes)
-           // for(var i = 0; i < arrTypes.length ;i++){
-           // }
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-        /*水边，你好，骗了，飘过来*/
-        axios.post('/movieType/MovieTypeIsUpload', {
-            type: this.$refs.ruleForm.model.name
-          })
-          .then(function (response) {
-            var getType= response.config.data
-            var newType = getType.substring(9,getType.length-2)
-              if(response.data.count === 0){
-                axios.post('/movieType/addMovieType', {
-                    type: newType
-                  })
-                  .then(function (response) {
-                    console.log(response)
-                  })
-                  .catch(function (error) {
-                    console.log(error);
-                  });
-                
-              }else{
-                console.log("重复")
-              }
+             this.$refs.mirror.$data.currentValue = this.$refs.ruleForm.model.name;
+             // this.$refs.ruleForm.model.name = ''
+               axios.post('/movieType/MovieTypeIsUpload', {
+              type: this.$refs.ruleForm.model.name
+            })
+            .then(function (response) {
+                var getType= response.config.data
+                var newType = getType.substring(9,getType.length-2)
+                if(response.data.count === 0){
+                  axios.post('/movieType/addMovieType', {
+                      type: newType
+                    })
+                    .then(function (response) {
+                      console.log(response)
+                    })
+                    .catch(function (error) {
+                      console.log(error);
+                    });
+                  
+                }else{
+                  
+                  console.log("已有该类型，请重新输入")
+                }
           })
           .catch(function (error) {
-            console.log(error);
+              console.log(error);
           });
-        
+      }else {
+          this.$refs.mirror.$data.currentValue = 'ddd'
+          console.log('error submit!!');
+          return false;
+        }
+      });
+      
       },
       resetForm(formName) {
         this.$refs[formName].resetFields();
