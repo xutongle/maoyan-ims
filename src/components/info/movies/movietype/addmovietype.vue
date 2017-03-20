@@ -9,7 +9,7 @@
 		    <el-input v-model="ruleForm.name" style="width:620px;"></el-input>
 		  </el-form-item>
 
-		  <el-form-item  style='position:absolute;right:68px;top:135px;z-index:9'>
+		  <el-form-item  style='position:absolute;right:108px;top:135px;z-index:9'>
 		    <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
         <el-button type="primary" @click="resetForm('ruleForm')">清空</el-button>
 		    <el-button type="primary" @click="lookFor('ruleForm')">查看</el-button>

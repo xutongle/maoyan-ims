@@ -4,8 +4,7 @@
 		    :data="movietypelist"
 		    border
 		    style="width: 100%"
-		    max-height="550"
-		    >
+		    max-height="550">
 			<el-table-column
 			  fixed
 			  align='center'
@@ -13,7 +12,6 @@
 			  label="编号"
 			  width="80">
 			</el-table-column>
-
     		<el-table-column
     		  fixed
 		      align='center'
@@ -21,7 +19,6 @@
 		      label="电影类型列表"
 		      width="200">
 		    </el-table-column>
-
 			<el-table-column
 		      fixed
 		      align='center'
@@ -29,7 +26,6 @@
 		      label="当前类型ID"
 		      width="238">
 		    </el-table-column>
-
 		    <el-table-column
 		      align='center'
 		      label="操作">
@@ -40,15 +36,6 @@
 			        	size="small">
 			          新增
 			        </el-button>
-
-			         <el-button 
-			         	@click.native.prevent="deleteRow(scope.$index, movietypelist)" 
-			         	type="danger" 
-			         	size="small">
-			          删除 
-			        </el-button>
-
-
 					<span
 						@click='upData(scope.$index, movietypelist)'>
 						<el-button  
@@ -58,8 +45,12 @@
 							修改
 						</el-button>
 					</span>
-
-				
+					<el-button 
+			         	@click.native.prevent="deleteRow(scope.$index, movietypelist)" 
+			         	type="danger" 
+			         	size="small">
+			            删除 
+			        </el-button>
 			  </template >
     		</el-table-column>
   		</el-table>
@@ -70,9 +61,7 @@
 					size="tiny">
 				  <el-input   
 				  	placeholder="请输入内容"
-				  	v-model='changeType.newType'
-				  	>
-				  		
+				  	v-model='changeType.newType'>
 				  </el-input>
 				  <span slot="footer" class="dialog-footer">
 				    <el-button @click="dialogVisible = false">取 消</el-button>
