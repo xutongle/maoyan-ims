@@ -1,5 +1,4 @@
 <template>
-
     <el-form label-width="120px">
                 <el-form-item label="选择电影">
                     <el-select
@@ -10,8 +9,7 @@
                         <el-option
                                 v-for="item in movies"
                                 :label="item.cName"
-                                :value="item._id"
-                                :style="{display: 'inline-block',width:'217px'}">
+                                :value="item._id">
                         </el-option>
                     </el-select>
                 </el-form-item>
@@ -24,9 +22,7 @@
                         <el-option
                                 v-for="item in cinemas"
                                 :label="item.name"
-                                :value="item._id"
-
-                                :style="{display: 'inline-block',width:'217px'}">
+                                :value="item._id">
                         </el-option>
                     </el-select>
                 </el-form-item>
@@ -40,8 +36,7 @@
                         <el-option
                                 v-for="item in auditoriums"
                                 :label="item.name"
-                                :value="item._id"
-                                :style="{display: 'inline-block',width:'217px'}">
+                                :value="item._id">
                         </el-option>
                     </el-select>
                 </el-form-item>
