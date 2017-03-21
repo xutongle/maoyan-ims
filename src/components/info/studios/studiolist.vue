@@ -38,7 +38,7 @@
     },
     methods:{
         deleteBtn(){
-
+            
         },
         async getStudiosList(){
             var studiosData = await _axios.post("/studios/getStudios");
