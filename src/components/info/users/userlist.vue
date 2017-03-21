@@ -68,7 +68,10 @@
 					_id:_id
 				});
 				console.log(delUser)
-				if(delUser.data){this.getUserList()}
+				if(delUser.data){
+				this.userlist=[]
+				this.getUserList()
+				}
 			}
 		}
 	}
