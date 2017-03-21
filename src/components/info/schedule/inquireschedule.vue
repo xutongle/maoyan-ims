@@ -11,8 +11,7 @@
                     <el-option
                             v-for="item in movies"
                             :label="item.cName"
-                            :value="item._id"
-                            :style="{display: 'inline-block',width:'217px'}">
+                            :value="item._id">
                     </el-option>
                 </el-select>
             </el-form-item>
@@ -25,9 +24,7 @@
                     <el-option
                             v-for="item in cinemas"
                             :label="item.name"
-                            :value="item._id"
-
-                            :style="{display: 'inline-block',width:'217px'}">
+                            :value="item._id">
                     </el-option>
                 </el-select>
             </el-form-item>
@@ -40,8 +37,7 @@
                     <el-option
                             v-for="item in auditoriums"
                             :label="item.name"
-                            :value="item._id"
-                            :style="{display: 'inline-block',width:'217px'}">
+                            :value="item._id">
                     </el-option>
                 </el-select>
             </el-form-item>
@@ -191,13 +187,25 @@
                 this.total=this.alldata.length;
                 this.pagesizes=[10,20,50]
             },
-            async handleDelete(index,row){
-                let result =await _axios.post('/schedules/deleteByScheduleID',{
-                    _id:row._id
-                });
-                this.save();                this.$message({
-                    message: '删除成功',
-                    type: 'success'
+            handleDelete(index,row){
+                this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    let result =_axios.post('/schedules/deleteByScheduleID',{
+                        _id:row._id
+                    });
+                    this.save();
+                    this.$message({
+                        type: 'success',
+                        message: '删除成功!'
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消删除'
+                    });
                 });
 
             },
@@ -208,7 +216,6 @@
             handleCurrentChange(val) {
                 this.page = val;
                 this.tableData=this.alldata.slice((this.page-1)*this.rows,this.page*this.rows);
-                console.log(`当前页: ${val}`);
             }
         }
     }
