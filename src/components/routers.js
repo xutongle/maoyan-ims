@@ -21,6 +21,8 @@ import Studios from './info/studios/studios.vue';
 import StudiosList from './info/studios/studiolist.vue';
 import AddStudios from './info/studios/addstudio.vue';
 import UpdateStudio from './info/studios/updatestudio.vue';
+import Theaters  from './info/studios/theaters/theaters.vue';
+import Theaterlist from './info/studios/theaters/theatlist.vue'
 
 Vue.use(Router);
 
@@ -94,7 +96,22 @@ export default new Router({
 			},{
 				path: 'updatestudio',
 				component: UpdateStudio
+			},{
+				path: 'theaters/:studioParams+',
+				component: Theaters,
+				children:[{
+					path: 'theaterlist',
+					component: Theaterlist,
+				}]
+				
 			}]
 		}]
 	}]
 });
+
+/*
+
+path: 'theaterlist',
+component: Theaterlist
+
+*/

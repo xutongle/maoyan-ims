@@ -1,55 +1,5 @@
-
-
-<template>
-	<div class='content'>
-		 <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm"
-		 style="margin-top:50px"
-		>
-		  <el-form-item label="新增电影类型" prop="name">
-		    <el-input v-model="ruleForm.name" style="width:620px;"></el-input>
-		  </el-form-item>
-
-		  <el-form-item  style='position:absolute;right:108px;top:135px;z-index:9'>
-		    <el-button type="primary" 
-          @click="submitForm('ruleForm')"
-          >
-          保存
-         </el-button>
-        <el-button type="primary" @click="resetForm('ruleForm')">清空</el-button>
-		    <el-button type="primary" @click="lookFor('ruleForm')">查看</el-button>
-		  </el-form-item>
-		</el-form>
-
-		<el-form  label-width="150px" class="demo-ruleForm" style="margin-top:50px">
-		  <el-form-item label="新增成功" >
-		    <el-input ref="mirror" value='' 
-		    	style="width:390px;"
-		    	:required="true"
-		    	:readonly='true'
-		    	></el-input>
-		  </el-form-item>
-		</el-form>
-     <div v-if='status' :class='tips' >已存在该类型</div>
-	</div>	
-</template>	
-<script>
-
-import axios from '../../../axios.js'
-import router from '../../../routers.js' 
-// import { mapMutations } from 'Vuex'
-
-  export default {
-    data() {
-	   var bitVlidate = (rule, value, callback) => {
-			            if (!/^[\u4e00-\u9fa5，]+$/.test(value)) {
-			                callback(new Error("请输入汉字或者英文字符"));
-			            }
-			            else {
-			                callback();
-			            }
-			    };
-      return {
-      	status:false,
+const state = {
+	status:false,
         ruleForm: {
           name:''
         },
@@ -75,11 +25,9 @@ import router from '../../../routers.js'
             }
           ]
         }
-      };
-    },
-    methods: {
-       // ...mapMutations(['submitForm',''])
-      submitForm(formName) {
+}
+const mutations = {
+	submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
              this.$refs.mirror.$data.currentValue = this.$refs.ruleForm.model.name;
@@ -123,24 +71,16 @@ import router from '../../../routers.js'
       lookFor(){
         router.push('movietypelist')
       }
-    }
-  }
-</script>   
-<style>
-	.content{
-		position:relative;
-		height:250px;
-		background:#fff;
-		border:1px solid rgba(17,212,134,.8);
-	}
-	.tips{
-    position:absolute;
-    left:50%;
-    top:50%;
-		width: 200px;
-    height: 100px;
-    background: #000;
-    opacity:.6;
-	}
 
-</style>    	
+}
+const getters = {
+
+
+}
+
+
+export default{
+	state,
+	mutations,
+	getters
+}

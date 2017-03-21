@@ -14,7 +14,7 @@ const store = new Vuex.Store({
 	modules: {
 		INFO_store,
 		MOVIE_store,
-		MOVIE_LIST_store,
+		MOVIE_LIST_store
 
 	},
 	plugins: [createLogger()]
