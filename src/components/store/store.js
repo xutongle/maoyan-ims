@@ -16,12 +16,10 @@ const store = new Vuex.Store({
 	modules: {
 		INFO_store,
 		MOVIE_store,
-<<<<<<< HEAD
-		MOVIE_LIST_store
-=======
+
 		MOVIE_LIST_store,
 		MOVIE_TYPE_LIST_store,
->>>>>>> f6e3ae8759f9ac8afc5c47ea8c92654fc54663f4
+
 
 	},
 	plugins: [createLogger()]
