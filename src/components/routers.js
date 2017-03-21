@@ -21,6 +21,9 @@ import Studios from './info/studios/studios.vue';
 import StudiosList from './info/studios/studiolist.vue';
 import AddStudios from './info/studios/addstudio.vue';
 import UpdateStudio from './info/studios/updatestudio.vue';
+import Schedule from './info/schedule/schedule.vue';
+import AddSchedule from './info/schedule/addschedule.vue';
+import Inquireschedule from './info/schedule/inquireschedule.vue';
 
 Vue.use(Router);
 
@@ -95,6 +98,18 @@ export default new Router({
 				path: 'updatestudio',
 				component: UpdateStudio
 			}]
-		}]
+		},
+			{
+            path: 'schedule',
+            component: Schedule,
+            children: [{
+                path: 'addschedule',
+                component: AddSchedule
+            },{
+                path: 'inquireschedule',
+                component: Inquireschedule
+            }]
+        }
+        ]
 	}]
 });
