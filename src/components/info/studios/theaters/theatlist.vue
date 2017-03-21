@@ -1,6 +1,6 @@
 <template>
     <div>
-     list 的的顶顶顶顶顶顶顶顶顶大大大
+     list 想要加载这个页面
     </div>
 
 </template>

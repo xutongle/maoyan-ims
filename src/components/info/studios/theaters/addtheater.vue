@@ -90,7 +90,7 @@
                this.theater.column == ' '
           },
           searchTheater(){
-            router.push(`theaterlist`)
+            router.push(`/info/studios/theaters/theaterlist`)
           }
 
 
