@@ -4,7 +4,7 @@
 		    :data="movietypelist"
 		    border
 		    style="width: 100%"
-		    max-height="550">
+		    max-height="600">
 			<el-table-column
 			  fixed
 			  align='center'
@@ -77,7 +77,7 @@
 		      @current-change="handleCurrentChange"
 		      :current-page="currentPage4"
 		      :page-sizes="pageSizes"
-		      :page-size="pageSize"
+		      :page-size="pageSize" 
 		      layout="total, sizes, prev, pager, next, jumper"
 		      :total="total">
 		    </el-pagination>
@@ -92,9 +92,9 @@ import axios from '../../../axios.js'
 		name: 'movietypelist',
 		data(){
 		   	return {
-		   		currentPage4:null,
-		   		pageSizes:[10,15,20,30,40],
-		   		pageSize:0,
+		   		currentPage4:0,  //当前页 number 1
+		   		pageSizes:[5,10,15,20,30,40], //每页显示个数选择器选项设置
+		   		pageSize:0, //每页显示条目个数
 		   		total:0,
 		   		changeType:{
 		   			newType:'',
@@ -110,34 +110,44 @@ import axios from '../../../axios.js'
 			}
 		},
 		mounted(){
-			this.getMovieTypeList()
+			this.getMovieTypeList(1,10)
 		},
 		methods: {
 			 handleSizeChange(val) {
-
-		        console.log(`每页 ${val} 条`);
-		        this.getMovieTypeList();
+		        this.getMovieTypeList(this.currentPage4,val);
+		        console.log(this.currentPage4)
+		        // console.log(`每页 ${val} 条`);
 		     },
 		     handleCurrentChange(val) {
-
-		        this.currentPage4 = val;
-		        console.log(val)
-		       
-		        this.getMovieTypeList(this.currentPage4);
+		        this.getMovieTypeList(val,this.pageSize);
+		         // console.log(`当前页: ${val}`);
 		     },
+		     //保存修改
 			 saveBtn(){
-			 	axios.post('/movieType/update', {
+
+			 	if(/^[\u4e00-\u9fa5]+$/.test(this.$data.changeType.newType) ){
+
+			 		axios.post('/movieType/update', {
 			 		type:this.$data.changeType.newType,
- 					_id:this.$data.changeType.newId
- 				})
- 				.then((response) => {
- 					console.log(response)
- 				})
- 				.catch(function (error) {
- 				  console.log(error);
- 				});
- 				this.getMovieTypeList(this.currentPage4)
+	 					_id:this.$data.changeType.newId
+	 				})
+	 				.then((response) => {
+	 					console.log(response)
+	 					this.getMovieTypeList(this.currentPage4,this.pageSize)
+	 				})
+	 				.catch(function (error) {
+	 				  console.log(error);
+	 				});
+	 				
+			 	}else{
+			 		this.$data.changeType.newType = '非法输入'
+
+			 		console.log("非法修改")
+			 	}
+			 	
+ 				
 			 },
+			 //修改
 			 upData(index, rows){ 
 			 	var currTypeArr =[] ;
 			 	var currnId = []
@@ -168,28 +178,29 @@ import axios from '../../../axios.js'
  				.catch(function (error) {
  				  console.log(error);
  				});
- 			this.getMovieTypeList(this.currentPage4);	
-		     },
-		     getMovieTypeList(currentPage){
-
+ 			this.getMovieTypeList();	
+		     },		
+		     //初始化列表
+		     getMovieTypeList(page,rows){
+		     	console.log()
 		     		axios.post('/movieType/getMovieType', {
-	     				page:1,
-	     	    		rows:10
+	     				page:page,
+	     	    		rows:rows
 	     				})
 	     				.then((response) => {
-	     					console.log(response.data)
 	     					var intData = this
 	     					intData.total = response.data.total
-	     					intData.currentPage4 = currentPage
-	     					/*总页数，貌似插件不支持*/
+
+	     					/*总页数的显示，貌似插件不支持*/
 	     					// intData.pageSize = response.data.maxPage
+	     					 intData.currentPage4 = page
+	     					 intData.pageSize = rows
 	     					 this.movietypelist = [...response.data.rows.map( (item) =>{
 	     					 	return {
 	     					 		currType:item.type,
 	     					 		typeId:item._id
 	     					 	}
 	     					 })]
-	     					
 	     				})
 	     				.catch(function (error) {
 	     				  console.log(error);
@@ -200,8 +211,6 @@ import axios from '../../../axios.js'
 		computed:{
 			
 		}
-		
-
 	}
 
 </script>
@@ -211,25 +220,16 @@ import axios from '../../../axios.js'
 		
 	}
 	.block{
-		margin: 80px auto 0;
+		margin: 40px auto 0;
 		text-align: center;
 	}
 	
 	
 </style>
 <!-- 
- 		 tableRowClassName(row, index) {
-		     	console.log(this.rows)
-		        if (index === 1) {
-		          return 'info-row';
-		        } else if (index === 3) {
-		          return 'positive-row';
-		        }
-		        return '';
-	      	}	
- :current-page="currentPage4"
-		      :page-sizes="[10, 20, 30, 40]"
-		      :page-size="40"
-		      layout="total, sizes, prev, pager, next, jumper"
-		      :total="400"
- 		 	 -->
+目前页面存在的问题：
+	1,弹出后，点击任何地方，插件面板都会关闭;
+	2,修改功能，改成相同名称的类型也能保存;
+	3,关于调用初始化页面的方法的时机问题,有时候会只有一条数据;
+	4,希望数据能够倒序排列，未解决
+ -->
