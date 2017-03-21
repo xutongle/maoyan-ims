@@ -45,18 +45,15 @@
                     </el-option>
                 </el-select>
             </el-form-item>
-
             <el-form-item label="操作">
                 <el-button-group>
                     <el-button
                             type="primary"
-                            icon="plus"
+                            icon="search"
                             :disabled="btndisabled"
                             @click="save">查询</el-button>
                 </el-button-group>
-
             </el-form-item>
-
         </el-form>
         <el-table
                 :data="tableData"
@@ -88,6 +85,15 @@
                 </template>
             </el-table-column>
         </el-table>
+        <el-pagination
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                :current-page="page"
+                :page-sizes="pagesizes"
+                :page-size="rows"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="total">
+        </el-pagination>
     </div>
 
 
@@ -119,8 +125,10 @@
 
                 page:1,
                 rows:10,
-
-                tableData:[]
+                total:0,
+                pagesizes:[],
+                alldata:[],
+                tableData:[],
             }
         },
         beforeMount(){
@@ -171,26 +179,36 @@
                     this.btndisabled=true
                 }
             },
+            //查询
             async save(){
                 let result =await _axios.post('/schedules/getSchedulesByMST',{
                     movieID:this.movieid,
                     studioID:this.cinemaid,
                     theaterID:this.auditoriumid,
-                    page:this.page,
-                    rows:this.rows
                 });
-                this.tableData=result.data.rows;
+                this.alldata=result.data.rows;
+                this.tableData=this.alldata.slice((this.page-1)*this.rows,this.page*this.rows);
+                this.total=this.alldata.length;
+                this.pagesizes=[10,20,50]
             },
             async handleDelete(index,row){
                 let result =await _axios.post('/schedules/deleteByScheduleID',{
                     _id:row._id
                 });
-                this.save();
-                this.$message({
+                this.save();                this.$message({
                     message: '删除成功',
                     type: 'success'
                 });
 
+            },
+            handleSizeChange(val) {
+                this.rows=val;
+                this.tableData=this.alldata.slice((this.page-1)*this.rows,this.page*this.rows);
+            },
+            handleCurrentChange(val) {
+                this.page = val;
+                this.tableData=this.alldata.slice((this.page-1)*this.rows,this.page*this.rows);
+                console.log(`当前页: ${val}`);
             }
         }
     }
