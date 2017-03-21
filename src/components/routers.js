@@ -25,7 +25,8 @@ import UpdateStudio from './info/studios/updatestudio.vue';
 
 import Theater  from './info/studios/theaters/theater.vue';
 import AddTheater  from './info/studios/theaters/addtheater.vue';
-import Theaterlist from './info/studios/theaters/theatlist.vue'
+import Theaterlist from './info/studios/theaters/theatlist.vue';
+
 
 import Schedule from './info/schedule/schedule.vue';
 import AddSchedule from './info/schedule/addschedule.vue';
@@ -114,7 +115,7 @@ export default new Router({
 					path: 'addtheater/:studioParams+',
 					component: AddTheater,
 				},{
-					path: 'theaterlist',
+					path: 'theatlist/:studioID',
 					component: Theaterlist,
 				}]
 				

@@ -6,7 +6,6 @@
 
                 <el-col :span="18" :push='3'>
                     <el-form label-width="100px" :model="theater">
-                    <el-row style='text-align:center'><h3>新增影厅</h3></el-row>
                         <el-row >
                             <el-form-item label="当前影院：">
                                 <el-input v-model="studio.name" disabled></el-input>
@@ -90,7 +89,9 @@
                this.theater.column == ' '
           },
           searchTheater(){
-            router.push(`/info/studios/theaters/theaterlist`)
+             var theaterID = this.$route.params.studioParams.split("&")
+             router.push('/info/studios/theaters/theatlist/' + theaterID[1])
+           // router.push(`/info/studios/theaters/theatlist` + )
           }
 
 

@@ -1,11 +1,13 @@
 <template>
     <div class="studiolist left-inner">
         <el-table  :data="studiolist" border stripe style="width: 100%" type="expand">
+            <el-table-column align='center' type="index" label="编号" ></el-table-column>
             <el-table-column prop="name" label="影院名称" show-overflow-tooltip align='center'></el-table-column>
             <el-table-column prop="address" label="影院地址" show-overflow-tooltip align='center'></el-table-column>
             <el-table-column prop="auditorium" label="查看放映厅" show-overflow-tooltip align='center'>
                 <template scope="scope">
-                    <el-button type="primary" size='small'  >查看放映厅</el-button>
+                    <el-button @click='lookTheater(scope.$index, studiolist)' type="primary" size='small'  >查看放映厅</el-button>
+                    <el-button @click='addTheater(scope.$index, studiolist)' type="success" size='small'  >新增放映厅</el-button>
                 </template>
             </el-table-column>
             <el-table-column prop="_id" label="操作" align='center'>
@@ -78,27 +80,41 @@
         handleCurrentChange(val) {
             this.getStudiosList(val, this.pageSize);
              console.log(`当前页: ${val}`);
+        },//查看影厅
+        lookTheater(index, rows){
+            var newArr = []
+            for (var i = 0; i < rows.length; i++) {
+                newArr.push(rows[i]._id)
+            }
+            console.log(newArr[index])
+            router.push('/info/studios/theaters/theatlist/' + newArr[index])
+
+            // newArr = rows.splice(index, 1);
+            // this.form._id = newArr[index]._id
+            // console.log(this.form._id)
+        },//点击修改影院信息
+        addTheater(index, rows){
+            var currID = []
+            var currName = []
+            for (var i = 0; i < rows.length; i++) {
+                currID.push(rows[i]._id)
+                currName.push(rows[i].name)
+            }
+            router.push('/info/studios/theaters/addtheater/' + currName[index] + "&" + currID[index])
         },
         changeStudioBtn(index, rows){
             var newArr = []
             for (var i = 0; i < rows.length; i++) {
                 newArr.push(rows[i]._id)
             }
+            console.log(newArr)
             newArr = rows.splice(index, 1);
             this.form.name = newArr[0].name
             this.form.address = newArr[0].address
             this.form._id = newArr[0]._id
-
-            
-
-            // console.log(newArr[0].name)
-            // console.log(newArr[0].address)
-            // console.log(newArr[0]._id)
-
-         
-        },
+        },//保存影院信息的修改
         savaChange(){
-            axios.post('/studios/deleteByID', {
+            axios.post('/studios/updateByID', {
                 _id: this.form._id,
                 name: this.form.name,
                 address: this.form.address
@@ -109,7 +125,8 @@
             .catch(function(error) {
                 console.log(error);
             });
-        },
+            this.getStudiosList(this.currentPage1, this.pageSize)
+        },//删除当前影院
         deleteBtn(index, rows){
             var newArr = new Array();
             var currnId = ""
@@ -127,7 +144,7 @@
                 .catch(function(error) {
                     console.log(error);
                 });
-        },
+        },//获取影院列表
         async getStudiosList(page, rows){
             await axios.post("/studios/getStudios",{
                 page:page,
