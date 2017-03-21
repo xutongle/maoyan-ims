@@ -9,6 +9,7 @@ import AddUser from './info/users/adduser.vue';
 import AddAdmin from './info/users/addadmin.vue';
 import UserList from './info/users/userlist.vue';
 import AdminList from './info/users/adminlist.vue';
+import UpdateUser from './info/users/updateUser.vue';
 import Movie from './info/movies/movies.vue';
 import AddMovie from './info/movies/addmovie.vue';
 import MovieList from './info/movies/movielist.vue';
@@ -55,6 +56,9 @@ export default new Router({
 			}, {
 				path: 'adminlist',
 				component: AdminList
+			},{
+				path: 'updateUser/:data',
+				component: UpdateUser
 			}]
 		}, {
 			path: 'movie',
