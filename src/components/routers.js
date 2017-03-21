@@ -22,14 +22,14 @@ import Studios from './info/studios/studios.vue';
 import StudiosList from './info/studios/studiolist.vue';
 import AddStudios from './info/studios/addstudio.vue';
 import UpdateStudio from './info/studios/updatestudio.vue';
-<<<<<<< HEAD
+
 import Theaters  from './info/studios/theaters/theaters.vue';
 import Theaterlist from './info/studios/theaters/theatlist.vue'
-=======
+
 import Schedule from './info/schedule/schedule.vue';
 import AddSchedule from './info/schedule/addschedule.vue';
 import Inquireschedule from './info/schedule/inquireschedule.vue';
->>>>>>> f6e3ae8759f9ac8afc5c47ea8c92654fc54663f4
+
 
 Vue.use(Router);
 
