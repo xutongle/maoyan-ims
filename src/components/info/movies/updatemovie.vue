@@ -11,7 +11,7 @@
 					</el-form-item>
 					<el-form-item label="影片类型">
 						<el-select :style='{display: "block"}' v-model="MOVIE_store.movie.type" :value='MOVIE_store.movie.type' multiple placeholder="请选择">
-							<el-option v-for="item in MOVIE_store.MOVIE_TYPE_LIST" :label="item.type" :value="item._id">
+							<el-option v-for="item in MOVIE_TYPE_LIST_store.MOVIE_TYPE_LIST" :label="item.type" :value="item._id">
 							</el-option>
 						</el-select>
 					</el-form-item>
@@ -48,17 +48,15 @@
 	import moviedetail from './moviedetail.vue';
 	import {
 		GET_MOVIE_BY_ID,
-		GET_MOVIE_DETAIL,
-		GET_MOVIE_TYPE_LIST
+		GET_MOVIE_DETAIL
 	} from '../../store/movie/mutations_type.js';
 	export default {
 		name: 'addmovie',
-		computed: Vuex.mapState(['MOVIE_store']),
+		computed: Vuex.mapState(['MOVIE_store',"MOVIE_TYPE_LIST_store"]),
 		created() {
 			this.GET_MOVIE_BY_ID({
 				movieID: this.$route.params.movieID
 			});
-			console.log(this)
 		},
 		methods: {
 			...Vuex.mapActions([GET_MOVIE_BY_ID]),

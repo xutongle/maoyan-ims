@@ -11,7 +11,7 @@
 	import Vuex from 'vuex';
 	import {
 		GET_MOVIE_TYPE_LIST
-	} from '../../store/movie/mutations_type.js';
+	} from '../../store/movie/movietypelist/mutations_type.js';
 	export default {
 		name: 'movies',
 		computed: Vuex.mapState(['MOVIE_store']),

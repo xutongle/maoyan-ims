@@ -6,8 +6,5 @@ import {
 export default {
     [GET_MOVIE_BY_ID](state, { movie }) {
 		state.movie = movie;
-	},
-	[GET_MOVIE_TYPE_LIST](state, { MOVIE_TYPE_LIST }) {
-		state.MOVIE_TYPE_LIST = MOVIE_TYPE_LIST;
 	}
 }
