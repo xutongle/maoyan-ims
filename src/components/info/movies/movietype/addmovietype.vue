@@ -10,7 +10,11 @@
 		  </el-form-item>
 
 		  <el-form-item  style='position:absolute;right:108px;top:135px;z-index:9'>
-		    <el-button type="primary" @click="submitForm('ruleForm')">保存</el-button>
+		    <el-button type="primary" 
+          @click="submitForm('ruleForm')"
+          >
+          保存
+         </el-button>
         <el-button type="primary" @click="resetForm('ruleForm')">清空</el-button>
 		    <el-button type="primary" @click="lookFor('ruleForm')">查看</el-button>
 		  </el-form-item>
@@ -25,6 +29,7 @@
 		    	></el-input>
 		  </el-form-item>
 		</el-form>
+     <div v-if='status' :class='tips' >已存在该类型</div>
 	</div>	
 </template>	
 <script>
@@ -74,7 +79,6 @@ import router from '../../../routers.js'
         this.$refs[formName].validate((valid) => {
           if (valid) {
              this.$refs.mirror.$data.currentValue = this.$refs.ruleForm.model.name;
-             // this.$refs.ruleForm.model.name = ''
                axios.post('/movieType/MovieTypeIsUpload', {
               type: this.$refs.ruleForm.model.name
             })
@@ -93,7 +97,7 @@ import router from '../../../routers.js'
                     });
                   
                 }else{
-                  
+                  alert("已有该类型，请重新输入")
                   console.log("已有该类型，请重新输入")
                 }
           })
@@ -101,7 +105,7 @@ import router from '../../../routers.js'
               console.log(error);
           });
       }else {
-          this.$refs.mirror.$data.currentValue = 'ddd'
+          this.$refs.mirror.$data.currentValue = '输入不能为空'
           console.log('error submit!!');
           return false;
         }
@@ -125,7 +129,14 @@ import router from '../../../routers.js'
 		background:#fff;
 		border:1px solid rgba(17,212,134,.8);
 	}
-	.test{
-		color:red
+	.tips{
+    position:absolute;
+    left:50%;
+    top:50%;
+		width: 200px;
+    height: 100px;
+    background: #000;
+    opacity:.6;
 	}
+
 </style>    	
