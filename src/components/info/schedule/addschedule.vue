@@ -1,9 +1,8 @@
 <template>
     <el-form label-width="120px">
-                <el-form-item label="选择电影">
+                <el-form-item label="选择电影" filterable>
                     <el-select
                             v-model="selectmovies"
-                            multiple
                             placeholder="请选择电影"
                             @change="getmovieid">
                         <el-option
@@ -13,7 +12,7 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="选择影院">
+                <el-form-item label="选择影院" filterable>
                     <el-select
                             v-model="cinema"
                             :disabled="cinemasisdisabled"
@@ -26,7 +25,7 @@
                         </el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="选择放映厅">
+                <el-form-item label="选择放映厅" filterable>
                     <el-select
                             v-model="auditorium"
                             multiple
@@ -84,7 +83,7 @@
         name: 'addschedule',
         data(){
             return{
-                //列表
+                //电影，影院，放映厅列表
                 movies:[],
                 cinemas:[],
                 auditoriums:[],
@@ -94,11 +93,12 @@
                 cinema:'',
                 times:'2017-03-21 16:35:03',
                 price:'30',
-
-                movieId:[],
+                theaters:['F1','F2'],
+                //选中的电影，影院，放映厅的ID
+                movieid:[],
                 cinemaid:'',
                 auditoriumsid:[],
-
+                //选择器与按钮是否禁用
                 cinemasisdisabled:true,
                 auditoriumisdisabled:true,
                 btndisabled:true,
@@ -130,11 +130,11 @@
                 let result =await _axios.post('/theaters/getTheatersByStudioID',{
                     studioID:id
                 });
-                this.auditoriums=result.data.rows
+                this.auditoriums=result.data.rows;
             },
             //获取选中的电影的id
             getmovieid(id){
-                this.movieId=id;
+                this.movieid=id;
                 this.cinemasisdisabled=id.length==0;
                 this.btnisdisabled()
             },
@@ -158,20 +158,19 @@
                     this.btndisabled=true
                 }
             },
-            async save(){
+            save(){
+                let movieID=this.movieid;
                 let theaterID=this.auditoriumsid;
                 let showTime=this.times;
                 let studioID=this.cinema;
                 let price=this.price;
-                this.movieId.forEach(function (movieID) {
-                    theaterID.forEach(function (theaterID) {
-                        let result =_axios.post('/schedules/addSchedule',{
-                            movieID:movieID,
-                            showTime:showTime,
-                            studioID:studioID,
-                            theaterID:theaterID,
-                            price:price
-                        })
+                theaterID.forEach(function (theaterID) {
+                    let result =_axios.post('/schedules/addSchedule',{
+                        movieID:movieID,
+                        showTime:showTime,
+                        studioID:studioID,
+                        theaterID:theaterID,
+                        price:price
                     })
                 });
                 this.$message({

@@ -129,7 +129,6 @@
         },
         beforeMount(){
             this.getMovie();
-            this.getCinemas();
         },
         methods:{
             //获取电影列表
@@ -138,8 +137,12 @@
                 this.movies=result.data.rows;
             },
             //获取影院列表
-            async getCinemas() {
-                let result =await _axios.post('/studios/getStudios');
+            async getCinemas(movieid) {
+                let result =await _axios.post('/schedules/getStudiosByMovieID',{
+                    movieID:movieid,
+                    time:this.getTime()
+                });
+                console.log(result.data)
                 this.cinemas=result.data.rows;
             },
             //获取放映厅
@@ -149,17 +152,25 @@
                 });
                 this.auditoriums=result.data.rows
             },
-            //获取选中的电影的id
+            //获取当前时间
+            getTime() {
+                let time = new Date();
+                return `${time.getFullYear()}-${time.getMonth()}-${time.getDate()} ${time.getHours()}:${time.getMinutes()}`
+             },
+            //获取选中的电影的id并调用获取影院列表的方法
             getmovieid(id){
                 this.movieid=id;
                 this.cinemasisdisabled=id.length==0;
+                this.getCinemas(id);
                 this.btnisdisabled()
             },
+
             //获取选中的影院id
             getcinemaid(id){
                 this.cinemaid=id;
                 this.getauditorium(id);
                 this.auditoriumisdisabled=id=='';
+                this.auditorium='';
                 this.btnisdisabled()
             },
             //获取选中的放映厅id
