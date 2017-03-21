@@ -35,7 +35,12 @@
 		methods:{
 			async getUserList(){
 				var userData= await _axios.post('/users/getUsers');
-				this.userlist=userData.data.rows
+				console.log(userData.data.rows)
+				for(let i=0;i<userData.data.rows.length;i++){
+					if(userData.data.rows[i].status==0){
+						this.userlist.push(userData.data.rows[i])
+					}
+				}
 			},
 			statusFormatter(row, column) {
 				switch (row.status) {
@@ -63,7 +68,10 @@
 					_id:_id
 				});
 				console.log(delUser)
-				if(delUser.data){this.getUserList()}
+				if(delUser.data){
+				this.userlist=[]
+				this.getUserList()
+				}
 			}
 		}
 	}

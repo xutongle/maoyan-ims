@@ -68,11 +68,11 @@
     "children": [
       {
         "title": "新增排片", 
-        "url": "/info/movie"
+        "url": "/info/schedule/addschedule"
       }, 
       {
         "title": "排片查询", 
-        "url": "/info/movie"
+        "url": "/info/schedule/inquireschedule"
       }
     ]
   }

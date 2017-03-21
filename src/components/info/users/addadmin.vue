@@ -40,70 +40,75 @@
 		</el-row>
 	</div>
 </template>
-<script type="es6">
+<script>
 	import 'babel-polyfill';
 	import _axios from "../../axios.js";
 	import router from "../../routers.js";
 	export default {
 		name: 'addadmin',
 		data() {
-		return {
-			user: {
-				username: '珠穆朗玛峰',
-				password: 123456,
-				flag:[{
-                    value: '0',
-                    label: '激活'
-				}],
-				status:[{
-                    value: 0,
-                    label: '普通用户',
-                    disabled: true
-				},{
-                     value: 1,
-                     label: '后台管理用户'
-				}]
-			},
-			value1:null,
-			value2:null,
-			btnType:true,
-			selectType:true
-		};
-	},
-	methods: {
-          onChange_B(){
-            this.btnType=false
-          },
-          onChange_S(){
-            this.selectType=false
-         },
-         clearValue(){
-            this.user.username='',
-			this.user.password='',
-			this.value1=null,
-			this.btnType=true
-         },
-		 async save() {
-            var result = await _axios.post('/users/reg', {
-						username: this.user.username,
-						password: this.user.password,
-						flag:this.value2,
-						status:this.value1
-					})
-             this.$message('恭喜您成为猫眼用户');
+			return {
+				user: {
+					username: '',
+					password: '',
+					flag: [{
+						value: '0',
+						label: '激活'
+					}],
+					status: [{
+						value: 0,
+						label: '普通用户',
+						disabled: true
+					}, {
+						value: 1,
+						label: '后台管理用户'
+					}]
+				},
+				value1: null,
+				value2: null,
+				btnType: true,
+				selectType: true
+			};
 		},
+		methods: {
+			onChange_B() {
+				this.btnType = false
+			},
+			onChange_S() {
+				this.selectType = false
+			},
+			clearValue() {
+				this.user.username = '',
+					this.user.password = '',
+					this.value1 = null,
+					this.btnType = true
+			},
+			async save() {
+				var result = await _axios.post('/users/reg', {
+					username: this.user.username,
+					password: this.user.password,
+					flag: this.value2,
+					status: this.value1
+				})
+				this.$message('授权猫眼管理员用户成功');
+			},
+		}
 	}
-	}
+
 </script>
 <style>
-	.addmin{
+	.addmin {
 		margin: 100px 0 0 100px;
 	}
-	h4{
+	
+	h4 {
 		margin-left: 290px;
-		color:#5e7382;
+		color: #5e7382;
 	}
-	.username,.password{
-		width:196px;
+	
+	.username,
+	.password {
+		width: 196px;
 	}
+
 </style>

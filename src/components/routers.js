@@ -9,6 +9,7 @@ import AddUser from './info/users/adduser.vue';
 import AddAdmin from './info/users/addadmin.vue';
 import UserList from './info/users/userlist.vue';
 import AdminList from './info/users/adminlist.vue';
+import UpdateUser from './info/users/updateUser.vue';
 import Movie from './info/movies/movies.vue';
 import AddMovie from './info/movies/addmovie.vue';
 import MovieList from './info/movies/movielist.vue';
@@ -21,8 +22,14 @@ import Studios from './info/studios/studios.vue';
 import StudiosList from './info/studios/studiolist.vue';
 import AddStudios from './info/studios/addstudio.vue';
 import UpdateStudio from './info/studios/updatestudio.vue';
+<<<<<<< HEAD
 import Theaters  from './info/studios/theaters/theaters.vue';
 import Theaterlist from './info/studios/theaters/theatlist.vue'
+=======
+import Schedule from './info/schedule/schedule.vue';
+import AddSchedule from './info/schedule/addschedule.vue';
+import Inquireschedule from './info/schedule/inquireschedule.vue';
+>>>>>>> f6e3ae8759f9ac8afc5c47ea8c92654fc54663f4
 
 Vue.use(Router);
 
@@ -57,6 +64,9 @@ export default new Router({
 			}, {
 				path: 'adminlist',
 				component: AdminList
+			},{
+				path: 'updateUser/:data',
+				component: UpdateUser
 			}]
 		}, {
 			path: 'movie',
@@ -105,7 +115,19 @@ export default new Router({
 				}]
 				
 			}]
-		}]
+		},
+			{
+            path: 'schedule',
+            component: Schedule,
+            children: [{
+                path: 'addschedule',
+                component: AddSchedule
+            },{
+                path: 'inquireschedule',
+                component: Inquireschedule
+            }]
+        }
+        ]
 	}]
 });
 

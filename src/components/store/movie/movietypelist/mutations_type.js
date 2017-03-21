@@ -1,0 +1,1 @@
+export const GET_MOVIE_TYPE_LIST = "GET_MOVIE_TYPE_LIST";

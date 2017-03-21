@@ -2,7 +2,7 @@ import actions from './actions.js';
 import mutations from './mutations.js';
 
 const state = {
-	movie: {}
+	MOVIE_TYPE_LIST: []
 };
 export default {
 	state,
