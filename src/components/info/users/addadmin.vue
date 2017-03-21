@@ -90,7 +90,7 @@
 						flag:this.value2,
 						status:this.value1
 					})
-             this.$message('恭喜您成为猫眼用户');
+             this.$message('授权猫眼管理员用户成功');
 		},
 	}
 	}
