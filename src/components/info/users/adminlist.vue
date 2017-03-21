@@ -23,7 +23,7 @@
 	import _axios from "../../axios.js";
 	import router from "../../routers.js";
 	export default {
-		name: 'userlist',
+		name: 'adminlist',
 		data(){
 			return {
 				adminlist:[]
@@ -35,7 +35,6 @@
 		methods:{
 			async getAdminlist(){
 				var userData= await _axios.post('/users/getUsers');
-				console.log(userData.data.rows)
 				for(let i=0;i<userData.data.rows.length;i++){
 					if(userData.data.rows[i].status==1){
 						this.adminlist.push(userData.data.rows[i])
@@ -68,7 +67,10 @@
 					_id:_id
 				});
 				console.log(delUser)
-				if(delUser.data){this.getUserList()}
+				if(delUser.data){
+				this.adminlist=[]
+				this.getAdminlist()
+				}
 			}
 		}
 	}
