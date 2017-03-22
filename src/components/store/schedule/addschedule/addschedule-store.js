@@ -103,11 +103,11 @@ const actions={
 
     },
     [RESET](context){
-        this.ADD_SCHEDULE_store.selectmovies='';
-        this.ADD_SCHEDULE_store.auditorium='';
-        this.ADD_SCHEDULE_store.cinema='';
-        this.ADD_SCHEDULE_store.times='';
-        this.ADD_SCHEDULE_store.price='';
+        context.state.selectmovies='';
+        context.state.auditorium='';
+        context.state.cinema='';
+        context.state.times='';
+        context.state.price='';
     }
 
 
