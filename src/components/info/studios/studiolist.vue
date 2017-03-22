@@ -83,11 +83,14 @@
         },//查看影厅
         lookTheater(index, rows){
             var newArr = []
+            var studioName = []
             for (var i = 0; i < rows.length; i++) {
                 newArr.push(rows[i]._id)
+
+                studioName.push(rows[i].name)
             }
-            console.log(newArr[index])
-            router.push('/info/studios/theaters/theatlist/' + newArr[index])
+            console.log(studioName[index])
+            router.push('/info/studios/theaters/theatlist/'  + newArr[index]  )
 
             // newArr = rows.splice(index, 1);
             // this.form._id = newArr[index]._id

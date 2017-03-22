@@ -2,15 +2,16 @@
     <div>
         <el-table  :data="theatlist" border stripe style="width: 100%" type="expand">
             <el-table-column align='center' type="index" label="编号" ></el-table-column>
+             <el-table-column prop="col" label="所属影院" width='100' show-overflow-tooltip align='center'></el-table-column>
             <el-table-column prop="name" label="影厅名称" show-overflow-tooltip align='center'></el-table-column>
-            <el-table-column prop="col" label="座位列数" width='100' show-overflow-tooltip align='center'></el-table-column>
+           
             <el-table-column prop="row" label="座位行数" width='100' show-overflow-tooltip align='center'></el-table-column>
             <el-table-column prop="count" label="座位总数" width='100' how-overflow-tooltip align='center'></el-table-column>
             
             <el-table-column prop="_id" label="操作" align='center'>
                 <template scope="scope">
                     <el-button-group>
-                        <el-button  @click.native.prevent="deleteBtn(scope.$index, theatlist)"  type="danger"  size='small' icon="delete">删除</el-button>
+                        <el-button  @click.native.prevent="deleteTheater(scope.$index, theatlist)"  type="danger"  size='small' icon="delete">删除</el-button>
                         <span @click="dialogFormVisible = true" >
                             <el-button @click.native.prevent="changeStudioBtn(scope.$index, theatlist)"  type="primary" size='small' icon="edit">更改</el-button>
                         </span>
@@ -117,7 +118,7 @@ export default {
             console.log(error);
         });
     },//删除当前影院
-    deleteBtn(index, rows){
+    deleteTheater(index, rows){
         var newArr = new Array();
         var currnId = ""
         for (var i = 0; i < rows.length; i++) {
@@ -125,18 +126,18 @@ export default {
         }
         rows.splice(index, 1);
         currnId = newArr.slice(index, index + 1)
-        axios.post('/studios/deleteByID', {
+        axios.post('/theaters/deleteByStudioID', {
                 _id: currnId
             })
             .then((response) => {
-                // console.log(response)
+                console.log(response)
             })
             .catch(function(error) {
                 console.log(error);
             });
     },//获取放映厅列表
     async getStudiosList(page, rows){
-        // console.log(this.theatlist)
+        console.log(this.$route.pramas)
         await axios.post("/theaters/getTheatersByStudioID",{
             studioID:this.$route.params.studioID,
             name:this.theatlist.name,
