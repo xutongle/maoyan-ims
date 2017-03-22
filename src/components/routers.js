@@ -115,7 +115,7 @@ export default new Router({
 					path: 'addtheater/:studioParams+',
 					component: AddTheater,
 				},{
-					path: 'theatlist/:studioID',
+					path: 'theatlist/:studioIDParams+',
 					component: Theaterlist,
 				}]
 				

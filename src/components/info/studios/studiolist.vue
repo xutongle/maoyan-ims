@@ -90,7 +90,7 @@
                 studioName.push(rows[i].name)
             }
             console.log(studioName[index])
-            router.push('/info/studios/theaters/theatlist/'  + newArr[index]  )
+            router.push('/info/studios/theaters/theatlist/'  + newArr[index] + "&" + studioName[index] )
 
             // newArr = rows.splice(index, 1);
             // this.form._id = newArr[index]._id
@@ -142,7 +142,7 @@
                     _id: currnId
                 })
                 .then((response) => {
-                    // console.log(response)
+                    console.log(response)
                 })
                 .catch(function(error) {
                     console.log(error);

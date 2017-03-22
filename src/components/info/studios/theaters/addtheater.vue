@@ -67,6 +67,7 @@
           },
           /*新增影厅*/
           saveTheater(){
+           
             var theaterID = this.$route.params.studioParams.split("&")
             axios.post("/theaters/addTheater",{
                 studioID:theaterID[1],
@@ -77,12 +78,9 @@
                 .then(function(response){
                     console.log(response)
                 })
-
           },
           clearTheater(){
-            console.log(this.theater.name)
-            console.log(this.theater.column)
-            console.log(this.theater.row)
+            
                this.theater.name == ' eeee'
                console.log(this.theater.name)
                this.theater.row == ' '
