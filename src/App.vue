@@ -8,7 +8,6 @@
 	export default {
 		name: 'app'
 	}
-
 </script>
 
 <style>
@@ -23,6 +22,15 @@
 	ul,
 	li {
 		list-style: none;
+	}
+	
+	#header {
+		margin: 0 auto;
+		text-align: center;
+	}
+	
+	#header h1{
+		margin: 15px auto;
 	}
 	
 	.login,
@@ -54,7 +62,7 @@
 		min-height: 800px;
 		height: 101%;
 		padding: 30px;
-		margin-top: 45px;
+		margin-top: 20px;
 		margin-bottom: 50px;
 		background: rgba(47, 170, 113, 0.8);
 		box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);

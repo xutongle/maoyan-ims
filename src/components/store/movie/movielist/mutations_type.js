@@ -1,3 +1,3 @@
-export const CURPAGE = "CURPAGE";
-export const EACHPAGES = "EACHPAGES";
+export const CHANGE_CURPAGE = "CHANGE_CURPAGE";
+export const CHANGE_EACHPAGES = "CHANGE_EACHPAGES";
 export const GET_MOVIE_BY_PAGE = "GET_MOVIE_BY_PAGE";

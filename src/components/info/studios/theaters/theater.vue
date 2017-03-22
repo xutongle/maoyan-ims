@@ -7,20 +7,7 @@
 
 
 <script>
-	import 'babel-polyfill';
-	import Vuex from 'vuex';
-	// import {
-	// 	GET_MOVIE_TYPE_LIST
-	// } from '../../store/movie/movietypelist/mutations_type.js';
 	export default {
-		name: 'theater',
-		// computed: Vuex.mapState(['MOVIE_store']),
-		// methods: {
-		// 	...Vuex.mapActions([GET_MOVIE_TYPE_LIST])
-		// },
-		// created() {
-		// 	this.GET_MOVIE_TYPE_LIST();
-		// }
+		name: 'theater'
 	}
-
 </script>

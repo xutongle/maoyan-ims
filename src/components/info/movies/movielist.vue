@@ -23,8 +23,8 @@
 			:page-size="MOVIE_LIST_store.page.eachPage" 
 			:current-page="MOVIE_LIST_store.page.curPage" 
 			:page-sizes="MOVIE_LIST_store.page.eachPages" 
-			@size-change="EACHPAGES" 
-			@current-change="CURPAGE" 
+			@size-change="CHANGE_EACHPAGES" 
+			@current-change="CHANGE_CURPAGE" 
 			layout="total, sizes, prev, pager, next, jumper">
 			</el-pagination>
 		</div>
@@ -36,18 +36,19 @@
 	import _axios from "../../axios.js";
 	import router from "../../routers.js";
 	import {
-		CURPAGE,
-		EACHPAGES,
+		CHANGE_CURPAGE,
+		CHANGE_EACHPAGES,
 		GET_MOVIE_BY_PAGE
-	} from '../../store/movie/movielist/mutations_type.js'
+	} from '../../store/movie/movielist/mutations_type.js';
 	export default {
 		name: 'movielist',
 		computed: Vuex.mapState(["MOVIE_LIST_store"]),
 		created() {
+			console.log(this)
 			this.GET_MOVIE_BY_PAGE()
 		},
 		methods: {
-			...Vuex.mapActions([GET_MOVIE_BY_PAGE,EACHPAGES,CURPAGE]),
+			...Vuex.mapActions([GET_MOVIE_BY_PAGE,CHANGE_EACHPAGES,CHANGE_CURPAGE]),
 			typeFormatter(row, column) {
 				var s = row.type.map((item) => item.type + '、').join('');
 				return s.substring(0, s.length - 1);
@@ -70,7 +71,7 @@
 					_id
 				});
 				if (result.data) {
-					this.GetMovieByPage();
+					this.GET_MOVIE_BY_PAGE();
 				}
 			}
 		}
