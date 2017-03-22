@@ -68,6 +68,7 @@
 				this.getMovieTypeList(this.$store.state.Movie_TypeList.currentPage4, val);
 				// console.log(this.$store.state.Movie_TypeList.currentPage4)
 				// console.log(`每页 ${val} 条`);
+				 console.log(Movie_TypeList.currentPage4)
 			},
 			handleCurrentChange(val) {
 				this.getMovieTypeList(val,this.$store.state.Movie_TypeList.pageSize);
