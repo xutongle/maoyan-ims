@@ -5,13 +5,13 @@
 			<el-col :span="16" :push='3'>
 				<el-form label-width="120px" :model="user">
 					<el-form-item label="用户名">
-						<el-input v-model="user.username" class="username"></el-input>
+						<el-input v-model="user.username" class="username" style="width: 200px"></el-input>
 					</el-form-item>
 					<el-form-item label="密码">
-						<el-input v-model="user.password" class="password"></el-input>
+						<el-input v-model="user.password" class="password" style="width: 200px"></el-input>
 					</el-form-item>
 					<el-form-item label="用户权限">
-						<el-select v-model="value1"  placeholder="请选择" @change="onChange_S">
+						<el-select v-model="value1"  placeholder="请选择" @change="onChange_S" style="width: 200px">
 							<el-option
 									v-for="item in user.status"
 									:label="item.label"
@@ -21,7 +21,7 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item label="启用状态">
-						<el-select v-model="value2"  placeholder="请选择" @change="onChange_B" :disabled='selectType'>
+						<el-select v-model="value2"  placeholder="请选择" @change="onChange_B" :disabled='selectType' style="width: 200px">
 							<el-option
 									v-for="item in user.flag"
 									:label="item.label"
@@ -30,10 +30,8 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item label="操作" :model="user">
-						<el-button-group>
 							<el-button type="primary" icon="plus" @click='save' :disabled='btnType'>新增用户</el-button>
 							<el-button type="primary" icon="delete" @click="clearValue">重置</el-button>
-						</el-button-group>
 					</el-form-item>
 				</el-form>
 			</el-col>

@@ -1,7 +1,7 @@
 import {
 	CHANGE_CURPAGE,
 	CHANGE_EACHPAGES,
-	GET_MOVIE_BY_PAGE
+	GET_USER_BY_PAGE
 } from './mutations_type.js'
 export default {
     [CHANGE_CURPAGE](state, curPage) {
@@ -10,11 +10,11 @@ export default {
 	[CHANGE_EACHPAGES](state, eachPage) {
 		state.page.eachPage = eachPage;
 	},
-	[GET_MOVIE_BY_PAGE](state, {
-		movielist,
+	[GET_USER_BY_PAGE](state, {
+		userlist,
 		total
 	}) {
-		state.movielist = movielist;
+		state.userlist = userlist;
 		state.total = total;
 	}
 }

@@ -142,7 +142,6 @@
                     movieID:movieid,
                     time:this.getTime()
                 });
-                console.log(result.data)
                 this.cinemas=result.data.rows;
             },
             //获取放映厅

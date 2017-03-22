@@ -2,17 +2,17 @@ import 'babel-polyfill';
 import axios from 'axios';
 
 import {
-	CURPAGE,
-	EACHPAGES,
+	CHANGE_CURPAGE,
+	CHANGE_EACHPAGES,
 	GET_MOVIE_BY_PAGE
 } from './mutations_type.js';
 export default {
-	async [CURPAGE](context, curPage) {
-		context.commit('CURPAGE', curPage);
+	async [CHANGE_CURPAGE](context, curPage) {
+		context.commit('CHANGE_CURPAGE', curPage);
 		context.dispatch('GET_MOVIE_BY_PAGE');
 	},
-	async [EACHPAGES](context, eachPage) {
-		context.commit('EACHPAGES', eachPage);
+	async [CHANGE_EACHPAGES](context, eachPage) {
+		context.commit('CHANGE_EACHPAGES', eachPage);
 		context.dispatch('GET_MOVIE_BY_PAGE');
 	},
 	async [GET_MOVIE_BY_PAGE](context) {
