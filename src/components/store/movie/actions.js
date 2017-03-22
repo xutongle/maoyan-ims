@@ -13,16 +13,5 @@ export default {
 			_id: movieID
 		});
 		context.commit("GET_MOVIE_BY_ID", {movie: r.data});
-	},
-//	async [GET_MOVIE_DETAIL](context, {
-//		movieID
-//	}) {
-//		console.log(movieID)
-//	},
-//	async [GET_MOVIE_BY_PAGE](context, {
-//		page,
-//		eachPage
-//	}) {
-//		console.log(page, eachPage)
-//	}
+	}
 }
