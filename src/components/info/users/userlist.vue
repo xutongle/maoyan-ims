@@ -1,7 +1,7 @@
 <template>
 	<div class="userlist left-inner">
 		<el-table  :data="uesrList" border stripe style="width: 100%"   type="expand">
-			<el-table-column prop="username" label="用户名称" show-overflow-tooltip></el-table-column>
+			<el-table-column prop="username" label="用户名称" show-overflow-tooltip ></el-table-column>
 			<el-table-column prop="password" label="用户密码" show-overflow-tooltip></el-table-column>
 			<el-table-column prop="status" label="用户状态" show-overflow-tooltip :formatter='statusFormatter'></el-table-column>
 			<el-table-column prop="flag" label="是否禁用" show-overflow-tooltip :formatter='flagFormatter'></el-table-column>
@@ -18,7 +18,7 @@
 			<el-pagination
 					@size-change="handleSizeChange"
 					@current-change="handleCurrentChange"
-					:current-page="currentPage4"
+					:current-page="nowPage"
 					:page-sizes="[12, 24, 36, 48]"
 					:page-size="pageSize"
 					layout="total, sizes, prev, pager, next, jumper"
@@ -115,3 +115,9 @@
 		}
 	}
 </script>
+<style>
+	.block{
+		display: flex;
+		justify-content: space-around;
+	}
+</style>

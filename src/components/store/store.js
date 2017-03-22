@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-// 日志插件
+// 鏃ュ織鎻掍欢
 import createLogger from 'vuex/dist/logger';
 
 Vue.use(Vuex);
