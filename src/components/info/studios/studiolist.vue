@@ -74,7 +74,6 @@
         methods:{
         handleSizeChange(val) {
             this.getStudiosList(this.currentPage1, val);
-            console.log(this.currentPage1)
             // console.log(`每页 ${val} 条`);
         },
         handleCurrentChange(val) {
@@ -86,12 +85,10 @@
             var studioName = []
             for (var i = 0; i < rows.length; i++) {
                 newArr.push(rows[i]._id)
-
                 studioName.push(rows[i].name)
             }
             console.log(studioName[index])
             router.push('/info/studios/theaters/theatlist/'  + newArr[index] + "&" + studioName[index] )
-
             // newArr = rows.splice(index, 1);
             // this.form._id = newArr[index]._id
             // console.log(this.form._id)

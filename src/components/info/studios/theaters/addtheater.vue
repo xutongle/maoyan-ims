@@ -1,9 +1,7 @@
 <template>
     <div>
         <div class="auditorium left-inner">
-
             <el-row :gutter="20">
-
                 <el-col :span="18" :push='3'>
                     <el-form label-width="100px" :model="theater">
                         <el-row >
@@ -17,14 +15,13 @@
                             </el-form-item>
                         </el-row>
                         <el-col :span='12'>
-
                         <el-form-item label="行：">
                             <el-input v-model="theater.row"></el-input>
                         </el-form-item>
                             <el-form-item label="列：">
                                 <el-input v-model="theater.column"></el-input>
                             </el-form-item>
-                </el-col>
+                        </el-col>
                         <el-col :span='24'>
                             <el-form-item label="操作：">
                                 <el-button-group>
@@ -39,11 +36,7 @@
             </el-row>
         </div>
     </div>
-
 </template>
-
-
-
 <script>
     import 'babel-polyfill';
     import axios from "../../../axios.js";
@@ -59,7 +52,6 @@
         beforeMount(){
              this.init()
         },
-        
         methods:{
           init(){
             var theaterName = this.$route.params.studioParams.split("&")
@@ -67,7 +59,6 @@
           },
           /*新增影厅*/
           saveTheater(){
-           
             var theaterID = this.$route.params.studioParams.split("&")
             axios.post("/theaters/addTheater",{
                 studioID:theaterID[1],
@@ -89,11 +80,7 @@
           searchTheater(){
              var theaterID = this.$route.params.studioParams.split("&")
              router.push('/info/studios/theaters/theatlist/' + theaterID[1])
-           // router.push(`/info/studios/theaters/theatlist` + )
           }
-
-
-
         }
     }
 </script>

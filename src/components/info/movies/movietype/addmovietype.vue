@@ -36,17 +36,18 @@
 
 import axios from '../../../axios.js'
 import router from '../../../routers.js' 
-// import { mapMutations } from 'Vuex'
+// import { mapState , mapMutations } from 'Vuex'
+// import { GET_MOVIE_TYPE_LIST , MOVIE_TYPE_LIST_store} from '../../../store/movie/movietypelist/movietypelist-store.js'
 
   export default {
     data() {
 	   var bitVlidate = (rule, value, callback) => {
-			            if (!/^[\u4e00-\u9fa5，]+$/.test(value)) {
-			                callback(new Error("请输入汉字或者英文字符"));
-			            }
-			            else {
-			                callback();
-			            }
+	            if (!/^[\u4e00-\u9fa5，]+$/.test(value)) {
+	                callback(new Error("请输入汉字或者英文字符"));
+	            }
+	            else {
+	                callback();
+	            }
 			    };
       return {
       	status:false,
@@ -78,7 +79,7 @@ import router from '../../../routers.js'
       };
     },
     methods: {
-       // ...mapMutations(['submitForm',''])
+       // ...mapMutations(['GET_MOVIE_TYPE_LIST']),
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
@@ -95,6 +96,10 @@ import router from '../../../routers.js'
                     })
                     .then(function (response) {
                       console.log(response)
+                      // this.GET_MOVIE_TYPE_LIST({
+                      //   page:1,
+                      //   rows:10
+                      // })
                     })
                     .catch(function (error) {
                       console.log(error);

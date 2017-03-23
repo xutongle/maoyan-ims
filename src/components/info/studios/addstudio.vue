@@ -71,10 +71,8 @@
 				}
 			},
 			goBtn(){
-				
 				router.push('/info/studios/theaters/addtheater/' + this.studio.name + "&" + this._id)
 				// router.push('/info/studios/theaters/{"name":"' + this.studio.name +'","id":"'+ this._id+'"}')
-				console.log(this.studio.name)
 			}
 		}		
 	}

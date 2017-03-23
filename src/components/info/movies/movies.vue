@@ -4,8 +4,6 @@
 		<router-view></router-view>
 	</div>
 </template>
-
-
 <script>
 	import 'babel-polyfill';
 	import Vuex from 'vuex';
@@ -16,10 +14,13 @@
 		name: 'movies',
 		computed: Vuex.mapState(['MOVIE_store']),
 		methods: {
-			...Vuex.mapActions([GET_MOVIE_TYPE_LIST])
+			...Vuex.mapActions(['GET_MOVIE_TYPE_LIST'])
 		},
 		created() {
-			this.GET_MOVIE_TYPE_LIST();
+			this.GET_MOVIE_TYPE_LIST({
+				page: 1,
+				rows: 10
+			});
 		}
 	}
 

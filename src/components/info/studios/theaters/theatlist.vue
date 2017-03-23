@@ -23,7 +23,6 @@
             :page-size="pageSize"  layout="total, sizes, prev, pager, next, jumper" :total="total">
             </el-pagination>
         </div>
-        
             <el-dialog title="修改当前影院" v-model="dialogFormVisible0" >
               <el-form :model="form" >
                 <el-form-item label="影院名称：" :label-width="formLabelWidth">
@@ -44,7 +43,6 @@
                         <el-table-column prop="displayName" label="座位位置"  show-overflow-tooltip align='center'></el-table-column>
                         <el-table-column prop="rowNo" label="座位排数" how-overflow-tooltip align='center'></el-table-column>
                         <el-table-column prop="colNo" label="座位列数"  show-overflow-tooltip align='center'></el-table-column>
-
                         <!-- <el-table-column prop="count" label="座位总数"  how-overflow-tooltip align='center'></el-table-column> -->
                     </el-table>
             </template>
@@ -52,11 +50,7 @@
 
     </div>
 </template>
-
-
-
 <script>
-
 import Vuex from 'vuex';
 import 'babel-polyfill';
 import axios from "../../../axios.js";
@@ -72,19 +66,17 @@ export default {
             theatlist:[{
                 name:'',
                 row:'',
-                col:''
-                
+                col:'',
             }],
             dialogFormVisible0: false,
             dialogFormVisible: false,
             form: {
                   name: '',
                   address: '',
-                  _id:''
+                  _id:'',
                 },
             formLabelWidth: '120px',
             theaterSeats:[]
-
         }
     },
     beforeMount(){
@@ -138,7 +130,6 @@ export default {
         axios.post('/theaters/updateByStudioID', {
             _id: this.form._id,
             name: this.form.name
-            
         })
         .then((response) => {
             console.log(response)
@@ -168,25 +159,15 @@ export default {
     async getStudiosList(page, rows){
         var studioMess = this.$route.params.studioIDParams.split("&")
         await axios.post("/theaters/getTheatersByStudioID",{
-            studioID:studioMess[0],
-            name:this.theatlist.name,
-            row:this.theatlist.row,
-            col:this.theatlist.col
+                studioID:studioMess[0],
+                name:this.theatlist.name,
+                row:this.theatlist.row,
+                col:this.theatlist.col
             })
             .then((response) =>{
                 this.theatlist = response.data.rows
-
-                 // console.log(response.data.rows[0]._id)
-                
             });
-        
-
-        
     }
    }
 }
-   
 </script>
-<style scoped>
-   
-</style>
