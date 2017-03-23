@@ -11,3 +11,5 @@ export const GET_AUDITORIUMIS='GET_AUDITORIUMIS';
 export const BTN_IS_DISABLED='BTN_IS_DISABLED';
 export const SAVE='SAVE';
 export const RESET='RESET';
+
+export const GET_CINEMAS_BY_MOVIEID='GET_CINEMAS_BY_MOVIEID';
