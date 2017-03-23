@@ -15,8 +15,6 @@
 		</el-row>
 	</div>
 </template>
-
-
 <script>
 	import Vuex from 'vuex';
 	export default {

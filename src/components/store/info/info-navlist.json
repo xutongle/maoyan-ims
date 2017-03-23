@@ -9,14 +9,6 @@
       {
         "title": "新增用户", 
         "url": "/info/users/adduser"
-      }, 
-      {
-        "title": "管理员列表", 
-        "url": "/info/users/adminlist"
-      }, 
-      {
-        "title": "新增管理员", 
-        "url": "/info/users/addadmin"
       }
     ]
   }, 

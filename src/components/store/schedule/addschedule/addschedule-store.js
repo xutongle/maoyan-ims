@@ -1,13 +1,9 @@
-/**
- * Created by lyh on 2017/3/22.
- */
 import 'babel-polyfill'
 import _axios from 'axios'
 import {
     GET_MOVIE,
     GET_CINEMAS,
     GET_AUDITORIUM,
-
     GET_MOVIEID,
     GET_CINEMAID,
     GET_AUDITORIUMIS,

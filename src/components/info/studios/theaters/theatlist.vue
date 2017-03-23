@@ -2,19 +2,18 @@
     <div>
         <el-table  :data="theatlist" border stripe style="width: 100%" type="expand">
             <el-table-column align='center' type="index" label="编号" ></el-table-column>
-            <el-table-column prop="name" label="影厅名称" show-overflow-tooltip align='center'></el-table-column>
-            <el-table-column prop="col" label="座位列数" width='100' show-overflow-tooltip align='center'></el-table-column>
-            <el-table-column prop="row" label="座位行数" width='100' show-overflow-tooltip align='center'></el-table-column>
-            <el-table-column prop="count" label="座位总数" width='100' how-overflow-tooltip align='center'></el-table-column>
-            
+             <el-table-column prop="studioID.name" label="所属影院" width='100' show-overflow-tooltip align='center'></el-table-column>
+            <el-table-column prop="name" label="影厅名称" width='100' show-overflow-tooltip align='center'></el-table-column>
             <el-table-column prop="_id" label="操作" align='center'>
                 <template scope="scope">
                     <el-button-group>
-                        <el-button  @click.native.prevent="deleteBtn(scope.$index, theatlist)"  type="danger"  size='small' icon="delete">删除</el-button>
-                        <span @click="dialogFormVisible = true" >
+                        <el-button  @click.native.prevent="deleteTheater(scope.$index, theatlist)"  type="danger"  size='small' icon="delete">删除</el-button>
+                        <span @click="dialogFormVisible0 = true" >
                             <el-button @click.native.prevent="changeStudioBtn(scope.$index, theatlist)"  type="primary" size='small' icon="edit">更改</el-button>
                         </span>
-                        <el-button @click='lookTheater(scope.$index, theatlist)' type="success" size='small' icon='search' >查看</el-button>
+                        <span  @click="dialogFormVisible = true">
+                            <el-button @click='lookTheaterSeats(scope.$index, theatlist)' type="success" size='small' icon='search' >座位</el-button>
+                        </span>
                     </el-button-group>
                 </template>
             </el-table-column>
@@ -25,7 +24,7 @@
             </el-pagination>
         </div>
         
-            <el-dialog title="修改当前影院" v-model="dialogFormVisible" >
+            <el-dialog title="修改当前影院" v-model="dialogFormVisible0" >
               <el-form :model="form" >
                 <el-form-item label="影院名称：" :label-width="formLabelWidth">
                   <el-input v-model="form.name" auto-complete="off"></el-input>
@@ -39,6 +38,18 @@
                 <span @click='savaChange'><el-button type="primary" @click="dialogFormVisible = false">确 定</el-button></span>
               </div>
             </el-dialog>
+            <el-dialog title="座位列表" v-model="dialogFormVisible" size='large'>
+                 <template scope="scope">
+                    <el-table :data="theaterSeats" border stripe style="width: 100%" type="expand">
+                        <el-table-column prop="displayName" label="座位位置"  show-overflow-tooltip align='center'></el-table-column>
+                        <el-table-column prop="rowNo" label="座位排数" how-overflow-tooltip align='center'></el-table-column>
+                        <el-table-column prop="colNo" label="座位列数"  show-overflow-tooltip align='center'></el-table-column>
+
+                        <!-- <el-table-column prop="count" label="座位总数"  how-overflow-tooltip align='center'></el-table-column> -->
+                    </el-table>
+            </template>
+            </el-dialog>
+
     </div>
 </template>
 
@@ -55,22 +66,25 @@ export default {
     data(){
         return{
             currentPage1: 1, //当前页 number 1
-            pageSizes: [5, 10, 15, 20, 30, 40], //每页显示个数选择器选项设置
+            pageSizes: [2,5, 10, 15, 20, 30, 40], //每页显示个数选择器选项设置
             pageSize: 0, //每页显示条目个数
             total: 4,
             theatlist:[{
                 name:'',
                 row:'',
-                col:'',
-                count:''
+                col:''
+                
             }],
+            dialogFormVisible0: false,
             dialogFormVisible: false,
             form: {
                   name: '',
                   address: '',
                   _id:''
                 },
-            formLabelWidth: '120px'
+            formLabelWidth: '120px',
+            theaterSeats:[]
+
         }
     },
     beforeMount(){
@@ -78,22 +92,38 @@ export default {
     },
     methods:{
     handleSizeChange(val) {
-        this.getStudiosList(this.currentPage1, val);
-        console.log(this.currentPage1)
+        /*未改,功能不具备*/
+        // this.getStudiosList(this.currentPage1, val);
+        // console.log(this.currentPage1)
         // console.log(`每页 ${val} 条`);
     },
     handleCurrentChange(val) {
-        this.getStudiosList(val, this.pageSize);
-         console.log(`当前页: ${val}`);
+        /*未改,功能不具备*/
+        // this.getStudiosList(val, this.pageSize);
+         // console.log(`当前页: ${val}`);
     },//查看影厅
-    lookTheater(index, rows){
-        var newArr = []
+    lookTheaterSeats(index, rows){
+        var newArr = [];
         for (var i = 0; i < rows.length; i++) {
             newArr.push(rows[i]._id)
         }
-        console.log(newArr[index])
-        router.push('/info/studios/theaters/theatlist/' + newArr[index])
-    },//点击修改影院信息
+       axios.post("/seats/getSeatsByTheaterID",{
+                theaterId:newArr.slice(index,index+1),
+                page:1,
+                rows:999
+            })
+            .then((response) =>{
+                this.theaterSeats = [...response.data.rows.map((item) =>{
+                    return{
+                        colNo:item.colNo,
+                        rowNo:item.rowNo,
+                        count:item.colNo*item.rowNo,
+                        displayName:item.displayName
+                    }
+                                    
+                })]
+            });
+    },//点击修改影院信息 /*未改,功能不具备*/
     changeStudioBtn(index, rows){
         var newArr = []
         for (var i = 0; i < rows.length; i++) {
@@ -103,12 +133,12 @@ export default {
         this.form.name = newArr[0].name
         this.form.address = newArr[0].address
         this.form._id = newArr[0]._id
-    },//保存影院信息的修改
+    },//保存影院信息的修改 /*未改,功能不具备*/
     savaChange(){
-        axios.post('/studios/deleteByID', {
+        axios.post('/theaters/updateByStudioID', {
             _id: this.form._id,
-            name: this.form.name,
-            address: this.form.address
+            name: this.form.name
+            
         })
         .then((response) => {
             console.log(response)
@@ -117,7 +147,7 @@ export default {
             console.log(error);
         });
     },//删除当前影院
-    deleteBtn(index, rows){
+    deleteTheater(index, rows){
         var newArr = new Array();
         var currnId = ""
         for (var i = 0; i < rows.length; i++) {
@@ -125,42 +155,32 @@ export default {
         }
         rows.splice(index, 1);
         currnId = newArr.slice(index, index + 1)
-        axios.post('/studios/deleteByID', {
+        axios.post('/theaters/deleteByStudioID', {
                 _id: currnId
             })
             .then((response) => {
-                // console.log(response)
+                console.log(response)
             })
             .catch(function(error) {
                 console.log(error);
             });
     },//获取放映厅列表
     async getStudiosList(page, rows){
-        // console.log(this.theatlist)
+        var studioMess = this.$route.params.studioIDParams.split("&")
         await axios.post("/theaters/getTheatersByStudioID",{
-            studioID:this.$route.params.studioID,
+            studioID:studioMess[0],
             name:this.theatlist.name,
             row:this.theatlist.row,
             col:this.theatlist.col
             })
             .then((response) =>{
-                console.log(response)
-                console.log(response.data.rows)
+                this.theatlist = response.data.rows
 
-                // console.log(response.data.rows[0]._id)
-                 this.theatlist = response.data.rows
-                 // axios.post("/seats/getSeatsByTheaterID",{
-                 //    theaterId:this.$route.params.studioID,
-                 //    page:this.theatlist.name,
-                 //    row:this.theatlist.row
-                 //    })
-                 //    .then((response) =>{
-                 //        console.log(response)
-                 //        this.theatlist = response.data.rows
-                        
-                 //    });
+                 // console.log(response.data.rows[0]._id)
                 
             });
+        
+
         
     }
    }
