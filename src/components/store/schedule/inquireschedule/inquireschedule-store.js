@@ -68,6 +68,7 @@ const actions={
     },
     //获取选中的影院id和该影院的放映厅
     async[GET_CINEMAID](context,id){
+        context.state.auditorium='';
         context.state.cinemaid=id;
         let result =await _axios.post('http://localhost:3010/theaters/getTheatersByStudioID',{
             studioID:id
