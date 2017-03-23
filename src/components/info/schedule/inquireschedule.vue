@@ -5,11 +5,11 @@
                 :style="{display:'flex'}">
             <el-form-item label="电影">
                 <el-select
-                        v-model="selectmovies"
+                        v-model="INQUIRE_SCHEDULE_store.selectmovies"
                         placeholder="请选择电影"
                         @change="getmovieid">
                     <el-option
-                            v-for="item in movies"
+                            v-for="item in INQUIRE_SCHEDULE_store.movies"
                             :label="item.cName"
                             :value="item._id">
                     </el-option>
@@ -17,12 +17,12 @@
             </el-form-item>
             <el-form-item label="影院">
                 <el-select
-                        v-model="cinema"
+                        v-model="INQUIRE_SCHEDULE_store.cinema"
                         :disabled="cinemasisdisabled"
                         placeholder="请选择影院"
                         @change="getcinemaid">
                     <el-option
-                            v-for="item in cinemas"
+                            v-for="item in INQUIRE_SCHEDULE_store.cinemas"
                             :label="item.name"
                             :value="item._id">
                     </el-option>
@@ -30,12 +30,12 @@
             </el-form-item>
             <el-form-item label="放映厅">
                 <el-select
-                        v-model="auditorium"
+                        v-model="INQUIRE_SCHEDULE_store.auditorium"
                         placeholder="请选择放映厅"
-                        @change="getauditoriumis"
+                        @change="getauditoriums"
                         :disabled="auditoriumisdisabled">
                     <el-option
-                            v-for="item in auditoriums"
+                            v-for="item in INQUIRE_SCHEDULE_store.auditoriums"
                             :label="item.name"
                             :value="item._id">
                     </el-option>
@@ -52,7 +52,7 @@
             </el-form-item>
         </el-form>
         <el-table
-                :data="tableData"
+                :data="INQUIRE_SCHEDULE_store.tableData"
                 border
                 style="width: 100%"
                 :default-sort = "{prop: 'date', order: 'descending'}">
@@ -84,11 +84,11 @@
         <el-pagination
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
-                :current-page="page"
-                :page-sizes="pagesizes"
-                :page-size="rows"
+                :current-page="INQUIRE_SCHEDULE_store.page"
+                :page-sizes="INQUIRE_SCHEDULE_store.sizes"
+                :page-size="INQUIRE_SCHEDULE_store.rows"
                 layout="total, sizes, prev, pager, next, jumper"
-                :total="total">
+                :total="INQUIRE_SCHEDULE_store.total">
         </el-pagination>
     </div>
 
@@ -98,88 +98,64 @@
     import 'babel-polyfill';
     import _axios from '../../axios';
     import router from "../../routers.js";
+    import Vuex from 'vuex';
+    import {mapState,mapActions,mapMutations} from 'Vuex'
+    import {GET_MOVIE,
+        GET_CINEMAS,
+        BTN_IS_DISABLED,
+        GET_MOVIEID,
+        GET_CINEMAID,
+        GET_AUDITORIUMIS,
+        GET_CINEMAS_BY_MOVIEID
+        } from'../../store/schedule/mutations_type'
+
     export default {
         name: 'inquireschedule',
+        computed:mapState(['INQUIRE_SCHEDULE_store']),
         data(){
             return{
-                //列表
-                movies:[],
-                cinemas:[],
-                auditoriums:[],
-                //model
-                selectmovies:'',
-                auditorium:'',
-                cinema:'',
-                //ID
-                movieid:'',
-                cinemaid:'',
-                auditoriumid:'',
                 //是否禁用
                 cinemasisdisabled:true,
                 auditoriumisdisabled:true,
                 btndisabled:true,
-
-                page:1,
-                rows:10,
-                total:0,
-                pagesizes:[],
-                alldata:[],
-                tableData:[],
             }
         },
         beforeMount(){
-            this.getMovie();
+            this.GET_MOVIE();
         },
         methods:{
-            //获取电影列表
-            async getMovie() {
-                let result =await _axios.post('/movies/getMoviesByPage');
-                this.movies=result.data.rows;
-            },
-            //获取影院列表
-            async getCinemas(movieid) {
-                let result =await _axios.post('/schedules/getStudiosByMovieID',{
-                    movieID:movieid,
-                    time:this.getTime()
-                });
-                this.cinemas=result.data.rows;
-            },
-            //获取放映厅
-            async getauditorium(id) {
-                let result =await _axios.post('/theaters/getTheatersByStudioID',{
-                    studioID:id
-                });
-                this.auditoriums=result.data.rows
-            },
-            //获取当前时间
-            getTime() {
-                let time = new Date();
-                return `${time.getFullYear()}-${time.getMonth()}-${time.getDate()} ${time.getHours()}:${time.getMinutes()}`
-             },
+            ...mapMutations([
+                GET_MOVIEID,
+                GET_AUDITORIUMIS,
+            ]),
+            ...mapActions([
+                GET_MOVIE,
+                GET_CINEMAS_BY_MOVIEID,
+                GET_CINEMAID
+            ]),
+
             //获取选中的电影的id并调用获取影院列表的方法
             getmovieid(id){
-                this.movieid=id;
+                this.GET_MOVIEID(id)
+                this.GET_CINEMAS_BY_MOVIEID(id);
                 this.cinemasisdisabled=id.length==0;
-                this.getCinemas(id);
                 this.btnisdisabled()
             },
-
-            //获取选中的影院id
+            //获取选中的影院id和该影院的放映厅
             getcinemaid(id){
-                this.cinemaid=id;
-                this.getauditorium(id);
+                this.GET_CINEMAID(id);
                 this.auditoriumisdisabled=id=='';
-                this.auditorium='';
                 this.btnisdisabled()
             },
-            //获取选中的放映厅id
-            getauditoriumis(id){
-                this.auditoriumid=id;
+            getauditoriums(id){
+                this.GET_AUDITORIUMIS(id);
                 this.btnisdisabled()
             },
             //提交按钮是否禁用
             btnisdisabled(){
-                if(this.movieid!=''&&this.auditoriumid!=''&&this.cinemaid!=''){
+                if(this.INQUIRE_SCHEDULE_store.movieid!=''&&
+                    this.INQUIRE_SCHEDULE_store.auditoriumid!=''&&
+                    this.INQUIRE_SCHEDULE_store.cinemaid!=''){
                     this.btndisabled=false
                 }else {
                     this.btndisabled=true
@@ -188,14 +164,17 @@
             //查询
             async save(){
                 let result =await _axios.post('/schedules/getSchedulesByMST',{
-                    movieID:this.movieid,
-                    studioID:this.cinemaid,
-                    theaterID:this.auditoriumid,
+                    movieID:this.INQUIRE_SCHEDULE_store.movieid,
+                    studioID:this.INQUIRE_SCHEDULE_store.cinemaid,
+                    theaterID:this.INQUIRE_SCHEDULE_store.auditoriumid,
                 });
-                this.alldata=result.data.rows;
-                this.tableData=this.alldata.slice((this.page-1)*this.rows,this.page*this.rows);
-                this.total=this.alldata.length;
-                this.pagesizes=[10,20,50]
+                this.INQUIRE_SCHEDULE_store.alldata=result.data.rows;
+                this.INQUIRE_SCHEDULE_store.tableData=this.INQUIRE_SCHEDULE_store.alldata
+                    .slice(
+                        (this.INQUIRE_SCHEDULE_store.page-1)*this.INQUIRE_SCHEDULE_store.rows,
+                        this.INQUIRE_SCHEDULE_store.page*this.INQUIRE_SCHEDULE_store.rows);
+                this.INQUIRE_SCHEDULE_store.total=this.INQUIRE_SCHEDULE_store.alldata.length;
+                this.INQUIRE_SCHEDULE_store.pagesizes=[10,20,50]
             },
             handleDelete(index,row){
                 this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
@@ -220,12 +199,20 @@
 
             },
             handleSizeChange(val) {
-                this.rows=val;
-                this.tableData=this.alldata.slice((this.page-1)*this.rows,this.page*this.rows);
+                this.INQUIRE_SCHEDULE_store.rows=val;
+                this.INQUIRE_SCHEDULE_store.tableData=this.INQUIRE_SCHEDULE_store.alldata
+                    .slice(
+                        (this.INQUIRE_SCHEDULE_store.page-1)*this.INQUIRE_SCHEDULE_store.rows,
+                        this.INQUIRE_SCHEDULE_store.page*this.INQUIRE_SCHEDULE_store.rows
+                    );
             },
             handleCurrentChange(val) {
-                this.page = val;
-                this.tableData=this.alldata.slice((this.page-1)*this.rows,this.page*this.rows);
+                this.INQUIRE_SCHEDULE_store.page = val;
+                this.INQUIRE_SCHEDULE_store.tableData=this.INQUIRE_SCHEDULE_store.alldata
+                    .slice(
+                        (this.INQUIRE_SCHEDULE_store.page-1)*this.INQUIRE_SCHEDULE_store.rows,
+                        this.INQUIRE_SCHEDULE_store.page*this.INQUIRE_SCHEDULE_store.rows
+                    );
             }
         }
     }
